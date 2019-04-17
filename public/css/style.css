@@ -67,10 +67,10 @@ ul#controls #help {
 	background-image: url(../img/control-help.png);
 }
 ul#controls #mute {
-	background-image: url(../img/control-mute.png);
+	background-image: url(../img/control-unmute.png);
 }
 ul#controls #mute.muted {
-	background-image: url(../img/control-unmute.png);
+	background-image: url(../img/control-mute.png);
 }
 ul#controls li label {
 	position: absolute;
@@ -104,7 +104,6 @@ ul#controls li:hover label {
 	box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 #helpheader {
-	height: 18px;
 	width: 100%;
 	background: #2F8AA1;
 	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.5, #13728A), color-stop(0.51, #2F8AA1), color-stop(1, #6ACDD4));
@@ -112,7 +111,7 @@ ul#controls li:hover label {
 	border-top-left-radius: 16px;
 	border-top-right-radius: 16px;
 	text-align: center;
-	padding: 20px 0;
+	padding: 10px 0;
 	position: absolute;
 	bottom: 100%;
 }
