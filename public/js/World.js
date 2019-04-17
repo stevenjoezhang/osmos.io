@@ -357,7 +357,7 @@ function World(canvas) {
 			this.ctx.closePath();
 			this.ctx.stroke();
 		}
-		this.ctx.strokeStyle = "#ffffff";
+		this.ctx.strokeStyle = "#FFF";
 		this.ctx.lineWidth = 2;
 		this.ctx.beginPath();
 		this.ctx.arc(this.cam.world_to_viewport_x(0), this.cam.world_to_viewport_y(0), this.level_radius * this.cam.scale, 0, Math.PI * 2, true);
