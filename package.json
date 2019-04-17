@@ -1,0 +1,31 @@
+{
+	"name": "osmoss",
+	"version": "0.0.1",
+	"description": "A multiplayer game (cloned from Osmos)",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js",
+		"build": "browserify client.js | uglifyjs > public/bundle.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/stevenjoezhang/osmoss.git"
+	},
+	"keywords": [
+		"Osmoss",
+		"Game"
+	],
+	"author": "Stephen Eisenhauer",
+	"license": "BSD",
+	"bugs": {
+		"url": "https://github.com/stevenjoezhang/osmoss/issues"
+	},
+	"homepage": "https://github.com/stevenjoezhang/osmoss",
+	"dependencies": {
+		"browserify": "^16.2.3",
+		"express": "^4.16.4",
+		"socket.io": "^2.2.0",
+		"socket.io-client": "^2.2.0",
+		"uglify-es": "^3.3.9"
+	}
+}

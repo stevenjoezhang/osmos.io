@@ -1,3 +1,5 @@
+var Mover = require("./Mover");
+
 function Cell(xpos, ypos, radius) {
 	// Inherit from Mover
 	this.inheritFrom = Mover;
@@ -82,3 +84,5 @@ function draw_cell(ctx, cam, shadow, player_radius) {
 		ctx.fill();
 	}
 }
+
+module.exports = Cell;

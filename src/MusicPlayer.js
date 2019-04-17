@@ -1,4 +1,4 @@
-function MusicPlayer(songArray, sfxDict, assetDir) {
+module.exports = function(songArray, sfxDict, assetDir) {
 	// Constants
 	this.default_volume = 0.6;
 	// Variables
