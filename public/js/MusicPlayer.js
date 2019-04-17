@@ -77,14 +77,14 @@ function MusicPlayer(songArray, sfxDict, assetDir) {
 			// Mute
 			this.song_audio.pause();
 			this.muted = true;
-			document.getElementById("mute").className = "muted";
-			document.getElementById("mute").children[0].innerText = "Unmute sounds [M]";
+			document.getElementById("mute").children[0].className = "fas fa-volume-mute";
+			document.getElementById("mute").children[1].innerText = "Unmute sounds [M]";
 		} else {
 			// Unmute
 			this.song_audio.play();
 			this.muted = false;
-			document.getElementById("mute").className = "";
-			document.getElementById("mute").children[0].innerText = "Mute sounds [M]";
+			document.getElementById("mute").children[0].className = "fas fa-volume-up";
+			document.getElementById("mute").children[1].innerText = "Mute sounds [M]";
 		}
 	};
 	// Play the sound effect with the given name
