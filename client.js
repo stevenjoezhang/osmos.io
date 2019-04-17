@@ -10,11 +10,6 @@ var mspf = 1000 / config.fps;
 window.onload = function() {
 	var canvas = document.getElementById("canvas");
 	if (canvas.getContext) {
-		// Canvas Setup
-		//canvas.height = window.innerHeight;
-		//canvas.width = window.innerWidth;
-		//center = [canvas.width / 2, canvas.height / 2];
-
 		// Game globals
 		window.world = new World(canvas);
 		// Initialize the World
@@ -22,7 +17,7 @@ window.onload = function() {
 
 		// Create requestAnimFrame if it doesn't exist
 		window.requestAnimFrame = (function() {
-			return  window.requestAnimationFrame   || 
+			return window.requestAnimationFrame    || 
 				window.webkitRequestAnimationFrame || 
 				window.mozRequestAnimationFrame    || 
 				window.oRequestAnimationFrame      || 
@@ -37,6 +32,5 @@ window.onload = function() {
 			world.update();
 			requestAnimFrame(animloop, canvas);
 		})();
-		//var updateInterval = window.setInterval("world.update()", mspf);
 	}
 }
