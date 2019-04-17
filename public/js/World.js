@@ -221,6 +221,8 @@ function World(canvas) {
 			world.user_did_zoom = true;
 			if (delta > 0) world.cam.scale_target *= 1.2;
 			if (delta < 0) world.cam.scale_target /= 1.2;
+			if (world.cam.scale_target > 400 / world.get_player().radius) world.cam.scale_target = 400 / world.get_player().radius;
+			if (world.cam.scale_target < 10 / world.get_player().radius) world.cam.scale_target = 10 / world.get_player().radius;
 		}
 	};
 	this.key_down = function(e) {
