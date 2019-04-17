@@ -7,7 +7,8 @@ function World(canvas) {
 	// Constants
 	this.transfer_rate_k = 0.25;
 	// Variables and setup
-	this.cells = []; // Array of 
+	this.cells = []; // Array of cells
+	// Canvas Setup
 	this.canvas = canvas;
 	this.ctx = this.canvas.getContext('2d');
 	this.cam = new Camera(canvas);
@@ -48,31 +49,31 @@ function World(canvas) {
 			window.addEventListener("blur", function() {
 				world.pause(true);
 			}, false);
-			document.getElementById("mute").addEventListener('click', function() {
+			document.getElementById("mute").addEventListener("click", function() {
 				world.music.mute();
 			}, false);
-			document.getElementById("newlevel").addEventListener('click', function() {
+			document.getElementById("newlevel").addEventListener("click", function() {
 				world.load_level();
 			}, false);
-			document.getElementById("pause").addEventListener('click', function() {
+			document.getElementById("pause").addEventListener("click", function() {
 				world.pause();
 			}, false);
-			document.getElementById("help").addEventListener('click', function() {
+			document.getElementById("help").addEventListener("click", function() {
 				world.toggle_help();
 			}, false);
-			document.getElementById("pausedmessage").addEventListener('click', function() {
+			document.getElementById("pausedmessage").addEventListener("click", function() {
 				world.pause();
 			}, false);
-			document.getElementById("deathmessage").addEventListener('click', function() {
+			document.getElementById("deathmessage").addEventListener("click", function() {
 				world.load_level();
 			}, false);
-			document.getElementById("warningmessage").addEventListener('click', function() {
+			document.getElementById("warningmessage").addEventListener("click", function() {
 				world.load_level();
 			}, false);
-			document.getElementById("successmessage").addEventListener('click', function() {
+			document.getElementById("successmessage").addEventListener("click", function() {
 				world.load_level();
 			}, false);
-			document.getElementById("playbutton").addEventListener('click', function() {
+			document.getElementById("playbutton").addEventListener("click", function() {
 				world.toggle_help();
 				// Play a sound in order to allow any sound playback at all on iOS
 				world.music.play_sound("win");
