@@ -1,4 +1,4 @@
-# Browsmos
+# Mosmos
 
 ## Play
 
@@ -6,7 +6,7 @@ http://stepheneisenhauer.com/demos/browsmos/
 
 ## About
 
-Browsmos is a game the web browser, made entirely using HTML5, and inspired 
+Mosmos is a game the web browser, made entirely using HTML5, and inspired 
 heavily by the gameplay of Osmos.
 
 The rules are simple; click to propel yourself around, and try to absorb 
@@ -15,7 +15,7 @@ they will absorb you!
 
 ## Install
 
-Browsmos can also be installed as an app in Chromium or Google Chrome, 
+Mosmos can also be installed as an app in Chromium or Google Chrome, 
 requiring no internet connectivity to play. It can be installed via the 
 Chrome Web Store here:
 
@@ -31,8 +31,8 @@ Chrome Web Store here:
 
 ## License
 
-Any JavaScript sources within Browsmos are hereby licensed under the 
-Simplified BSD License. You are free to modify and redistribute Browsmos, 
+Any JavaScript sources within Mosmos are hereby licensed under the 
+Simplified BSD License. You are free to modify and redistribute Mosmos, 
 but, if you do, please:
 
 * don't distribute modifications as though they are my own
