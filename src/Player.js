@@ -1,3 +1,5 @@
+var Mover = require("./Mover");
+
 function Cell(xpos, ypos, radius) {
 	// Inherit from Mover
 	this.inheritFrom = Mover;
@@ -51,3 +53,5 @@ function draw_cell(ctx) {
 	ctx.fill();
 	this.last_y = this.y_pos;
 }
+
+module.exports = Cell;

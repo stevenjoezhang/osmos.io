@@ -1,3 +1,8 @@
+var Camera = require("./Camera");
+var MusicPlayer = require("./MusicPlayer");
+var Cell = require("./Cell");
+var config = require("../config.json");
+
 function World(canvas) {
 	// Constants
 	this.transfer_rate_k = 0.25;
@@ -329,13 +334,13 @@ function World(canvas) {
 		// Advance timer
 		var currentTick = (new Date()).getTime();
 		this.frameSpacing = currentTick - this._lastTick;
-		this.frame_delta = this.frameSpacing / mspf;
+		this.frame_delta = this.frameSpacing * config.fps / 1000;
 		this._lastTick = currentTick;
 		// Canvas maintenance
 		this.canvas.height = window.innerHeight;
 		this.canvas.width = window.innerWidth;
-		center = [this.canvas.width / 2, this.canvas.height / 2];
-		viewport_radius = Math.min(this.canvas.height, this.canvas.width) / 2;
+		//var center = [this.canvas.width / 2, this.canvas.height / 2];
+		//var viewport_radius = Math.min(this.canvas.height, this.canvas.width) / 2;
 		// Background
 		this.ctx.fillStyle = this.surr_color;
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -357,7 +362,7 @@ function World(canvas) {
 			this.ctx.closePath();
 			this.ctx.stroke();
 		}
-		this.ctx.strokeStyle = "#ffffff";
+		this.ctx.strokeStyle = "#FFF";
 		this.ctx.lineWidth = 2;
 		this.ctx.beginPath();
 		this.ctx.arc(this.cam.world_to_viewport_x(0), this.cam.world_to_viewport_y(0), this.level_radius * this.cam.scale, 0, Math.PI * 2, true);
@@ -453,3 +458,5 @@ function angleForVector(x, y) {
 	else if (y < 0) ang += 2 * Math.PI;
 	return ang;
 }
+
+module.exports = World;

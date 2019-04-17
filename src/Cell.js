@@ -1,3 +1,5 @@
+var Mover = require("./Mover");
+
 function Cell(xpos, ypos, radius) {
 	// Inherit from Mover
 	this.inheritFrom = Mover;
@@ -11,7 +13,7 @@ function Cell(xpos, ypos, radius) {
 	// Properties
 	this.dead = false;
 	// Player color
-	this.fillStyle = "#73DBFF";
+	this.fillStyle = "rgb(115,219,255)";
 	// Methods
 	this.reset = reset_cell;
 	this.update = update_cell;
@@ -60,9 +62,21 @@ function draw_cell(ctx, cam, shadow, player_radius) {
 			ctx.fill();
 		}
 		if (player_radius) {
-			if (this.radius > player_radius) ctx.fillStyle = "#FF441A"; // red
-			else if (player_radius - this.radius < 3) ctx.fillStyle = "#FFAF00"; // white
-			else ctx.fillStyle = "#36B6FF"; // blue
+			if (this.radius > player_radius) ctx.fillStyle = "rgb(255,68,26)"; // red
+			else if (player_radius - this.radius <= 4) {
+				var delta = player_radius - this.radius;
+				if (delta <= 2) {
+					var ref = [[255, 255], [68, 175], [26, 0]];
+					ctx.fillStyle = "rgb(" + ref.map(x => x[0] + (x[1] - x[0]) * delta / 4).join(",") + ")";
+				}
+				else {
+					delta -= 2;
+					var ref = [[255, 54], [175, 182], [0, 255]];
+					ctx.fillStyle = "rgb(" + ref.map(x => x[0] + (x[1] - x[0]) * delta / 4).join(",") + ")";
+				}
+				//ctx.fillStyle = "#FFAF00"; // yellow
+			}
+			else ctx.fillStyle = "rgb(54,182,255)"; // blue
 		} else ctx.fillStyle = this.fillStyle;
 		ctx.beginPath();
 		ctx.arc(cam.world_to_viewport_x(this.x_pos), cam.world_to_viewport_y(this.y_pos), this.radius * cam.scale, 0, Math.PI * 2, true);
@@ -70,3 +84,5 @@ function draw_cell(ctx, cam, shadow, player_radius) {
 		ctx.fill();
 	}
 }
+
+module.exports = Cell;

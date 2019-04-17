@@ -1,4 +1,4 @@
-function Camera(canvas) {
+module.exports = function(canvas) {
 	// Constants
 	this.scale_smoothness = 0.3;
 	this.move_smoothness = 0.3;

@@ -31,9 +31,4 @@ Chrome Web Store here:
 
 ## License
 
-Any JavaScript sources within Mosmos are hereby licensed under the 
-Simplified BSD License. You are free to modify and redistribute Mosmos, 
-but, if you do, please:
-
-* don't distribute modifications as though they are my own
-* consider including an attribution, preferably linking to this page
+Mosmos is forked from browsmos.

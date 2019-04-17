@@ -1,6 +1,6 @@
 // Super-"class" of Ball and Player
 // Handles physical attributes and actions
-function Mover() {
+module.exports = function() {
 	// Variables to hold size
 	this.radius = 20;
 	// Variables to hold current position
