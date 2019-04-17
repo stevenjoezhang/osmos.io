@@ -1,8 +1,9 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Osmoss</title>
 <link rel="author" href="https://plus.google.com/105903021303554703114/"/>
+<link rel="stylesheet" href="fontawesome/css/all.min.css">
 <script src="js/Mover.js"></script>
 <script src="js/Cell.js"></script>
 <script src="js/World.js"></script>
@@ -61,10 +62,10 @@ function main() {
 	<img id="logo" src="img/logo.svg" alt="Osmoss" width="290"/>
 	<canvas id="canvas">Sorry, no canvas for you!</canvas>
 	<ul id="controls">
-		<li id="help"><label>Help [H]</label></li>
-		<li id="pause"><label>Pause [P]</label></li>
-		<li id="newlevel"><label>New random level [R]</label></li>
-		<li id="mute"><label>Mute sounds [M]</label></li>
+		<li id="help"><i class="fas fa-question-circle"></i><label>Help [H]</label></li>
+		<li id="pause"><i class="fas fa-pause"></i><label>Pause [P]</label></li>
+		<li id="newlevel"><i class="fas fa-dice-six"></i><label>New random level [R]</label></li>
+		<li id="mute"><i class="fas fa-volume-up"></i><label>Mute sounds [M]</label></li>
 	</ul>
 	<div id="songinfo" class="idle">
 		<div id="songtitle"></div>
@@ -117,6 +118,6 @@ function main() {
 			</div>
 		</div>
 	</div>
-	<footer><a href="http://stepheneisenhauer.com">An experiment by Stephen Eisenhauer</a></footer>
+	<!--<footer><a href="http://stepheneisenhauer.com">An experiment by Stephen Eisenhauer</a></footer>-->
 </body>
 </html>

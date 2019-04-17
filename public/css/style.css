@@ -57,21 +57,6 @@ ul#controls li {
 	width: 24px;
 	background-repeat: no-repeat;
 }
-ul#controls #newlevel {
-	background-image: url(../img/control-random.png);
-}
-ul#controls #pause {
-	background-image: url(../img/control-pause.png);
-}
-ul#controls #help {
-	background-image: url(../img/control-help.png);
-}
-ul#controls #mute {
-	background-image: url(../img/control-unmute.png);
-}
-ul#controls #mute.muted {
-	background-image: url(../img/control-mute.png);
-}
 ul#controls li label {
 	position: absolute;
 	top: 100%;
