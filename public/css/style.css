@@ -10,7 +10,7 @@ body, html {
 }
 canvas {
 	background-color: black;
-	position: absolute;
+	position: fixed;
 	height: 100%;
 	width: 100%;
 	cursor: crosshair;
@@ -36,33 +36,29 @@ canvas {
 	text-align: center;
 }
 .messages #mainmessage {
-	font-size: 22px;
+	font-size: 1.375em;
 }
 .messages #subtext {
-	font-size: 12px;
+	font-size: 0.75em;
 }
 ul#controls {
 	position: absolute;
 	top: 5px;
 	right: 5px;
 	list-style-type: none;
-	width: 150px;
 }
 ul#controls li {
 	display: block;
 	float: right;
 	margin-left: 10px;
 	cursor: pointer;
-	height: 24px;
-	width: 24px;
 	background-repeat: no-repeat;
 }
 ul#controls li label {
 	position: absolute;
 	top: 100%;
 	right: 0;
-	font-size: 14px;
-	letter-spacing: 0;
+	font-size: 0.875em;
 	background-color: rgba(0, 0, 0, 0.5);
 	padding: 2px 4px;
 	border: 1px solid #555;
@@ -105,7 +101,7 @@ ul#controls li:hover label {
 	height: 100%;
 	color: white;
 	text-shadow: 1px 1px 0px black;
-	font-size: 90%;
+	font-size: 0.9em;
 }
 #helpbody p {
 	margin: 0.5em 0;
@@ -115,13 +111,13 @@ ul#controls li:hover label {
 }
 #helpbody h2 {
 	margin-top: 1.7em;
-	font-size: 100%;
+	font-size: 1em;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.8);
 }
 #helpbody h3 {
 	margin-top: 1.5em;
 	margin-bottom: 0.2em;
-	font-size: 80%;
+	font-size: 0.8em;
 }
 #helpbody a, #helpbody a:hover {
 	color: white;
@@ -178,24 +174,18 @@ ul#controls li:hover label {
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
-	font-size: 60%;
+	font-size: 0.7em;
 	padding: 5px;
 	margin: 5px;
 	border-radius: 4px;
+	opacity: 1;
+	transition: opacity, background-color 1s linear;
 }
 #songinfo.idle {
-	background-color: none;
-	opacity: 1;
-	-webkit-transition: opacity, background-color 1s linear;
-	-moz-transition: opacity, background-color 1s linear;
-	transition: opacity, background-color 1s linear;
+	background-color: initial;
 }
 #songinfo.featured {
 	background-color: #222;
-	opacity: 1;
-	-webkit-transition: opacity, background-color 1s linear;
-	-moz-transition: opacity, background-color 1s linear;
-	transition: opacity, background-color 1s linear;
 }
 #songtitle {
 	font-weight: bold;
@@ -212,7 +202,7 @@ footer a {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
-	font-size: 60%;
+	font-size: 0.6em;
 	text-transform: uppercase;
 }
 #logo, footer a, #controls li {

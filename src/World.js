@@ -102,14 +102,14 @@ function World(canvas) {
 			// Unpause
 			this.clear_msgs();
 			this.paused = false;
-			document.getElementById("pause").children[0].className = "fas fa-pause";
+			document.getElementById("pause").children[0].className = "fas fa-2x fa-pause";
 			document.getElementById("pause").children[1].innerText = "Pause [P]";
 			this.music.raise_volume();
 		} else {
 			// Pause
 			this.show_message("pausedmessage");
 			this.paused = true;
-			document.getElementById("pause").children[0].className = "fas fa-play";
+			document.getElementById("pause").children[0].className = "fas fa-2x fa-play";
 			document.getElementById("pause").children[1].innerText = "Play [P]";
 			this.music.lower_volume();
 		}
