@@ -5,7 +5,7 @@ function MusicPlayer(songArray, sfxDict, assetDir) {
 	this.songs = songArray;
 	this.sounds = sfxDict;
 	if (assetDir) this.asset_dir = assetDir;
-	else this.asset_dir = "snd/";
+	else this.asset_dir = "sounds/";
 	this.inited = false;
 	this.song_volume = this.default_volume;
 	// State variables
