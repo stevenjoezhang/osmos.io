@@ -1,4 +1,6 @@
-var World = require("./src/world");
+var io = require("socket.io-client");
+
+var World = require("./src/mode/player");
 var Renderer = require("./src/renderer");
 var MusicPlayer = require("./src/musicplayer");
 var Control = require("./src/control");
@@ -24,7 +26,6 @@ window.onload = function() {
 			["music/VincentAndTristan_OsmosTheme2.ogg", "Osmos Theme 2", "Vincent And Tristan"],
 			["music/HighSkies-ShapeOfThingsToCome.ogg", "Shape Of Things To Come", "High Skies"],
 			["music/Loscil-Rorschach.ogg", "Rorschach", "Loscil"]
-
 		], {
 			"blip": ["fx/blip.ogg"],
 			"win": ["fx/win.ogg"],
