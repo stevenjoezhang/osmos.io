@@ -1,18 +1,13 @@
-var Camera = require("./Camera");
-var MusicPlayer = require("./MusicPlayer");
-var Cell = require("./Cell");
+var MusicPlayer = require("./musicplayer");
+var Cell = require("./cell");
+var Renderer = require("./renderer");
 var config = require("../config.json");
 
 function World(canvas) {
 	// Constants
-	this.level_size = config.consts.LEVEL_SIZE; // Just a default; Will be set in load_level
 	this.level_radius = config.consts.LEVEL_RADIUS; // Define level boundary
 	// Variables and setup
 	this.cells = []; // Array of cells
-	// Canvas Setup
-	this.canvas = canvas;
-	this.ctx = this.canvas.getContext("2d");
-	this.cam = new Camera(canvas);
 	// For timer
 	this.lastTick = new Date().getTime();
 	this.frame_spacing;
@@ -21,7 +16,7 @@ function World(canvas) {
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
 	this.paused = false;
 	this.has_started = false; // Indicates if the intro menu has been dismissed at least once
-	this.shadows = true;
+	this.renderer = new Renderer(canvas);
 	this.music = new MusicPlayer(
 		[
 			["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
@@ -43,11 +38,6 @@ function World(canvas) {
 	// Methods
 	this.init = function() {
 		// Event registration
-		this.canvas.addEventListener("mousedown", this.mouse_down, false);
-		this.canvas.addEventListener("touchstart", this.touch_start, false);
-		this.canvas.addEventListener("DOMMouseScroll", this.mouse_scroll, false);
-		this.canvas.addEventListener("mousewheel", this.mouse_scroll, false);
-
 		window.addEventListener("keydown", this.key_down, false);
 		window.addEventListener("blur", function() {
 			world.pause(true);
@@ -149,10 +139,6 @@ function World(canvas) {
 			this.music.lower_volume();
 		}
 	};
-	this.zoom_to_player = function() {
-		// Scale 1x looks best when player radius is 40
-		this.cam.scale_target = this.level_size / 10 / this.get_player().radius;
-	};
 	this.load_level = function() {
 		this.cells = [];
 		this.user_did_zoom = false;
@@ -175,14 +161,7 @@ function World(canvas) {
 			cell.y_veloc = (Math.random() - 0.5) * 0.35;
 			this.cells.push(cell);
 		}
-		// Center camera over level
-		if (this.cam.x == 0 && this.cam.y == 0) {
-			this.cam.x = this.level_size / 2;
-			this.cam.y = this.level_size / 2;
-		}
-		this.cam.x_target = this.cam.x;
-		this.cam.y_target = this.cam.y;
-		this.zoom_to_player();
+		this.renderer.cam.center();
 	};
 	this.get_player = function() {
 		if (this.cells.length > 0) return this.cells[0];
@@ -218,82 +197,6 @@ function World(canvas) {
 			this.music.play_sound("blip");
 		}
 	};
-	this.click_at_point = function(x, y) {
-		if (!world.paused) {
-			// Convert view coordinates (clicked) to world coordinates
-			x = this.cam.viewport_to_world_x(x);
-			y = this.cam.viewport_to_world_y(y);
-			// Push player
-			this.push_player_from(x, y);
-		}
-	};
-	this.touch_start = function(ev) {
-		ev.preventDefault(); // Prevent dragging
-		var touch = ev.touches[0]; // Just pay attention to first touch
-		world.click_at_point(touch.pageX, touch.pageY);
-	};
-	this.mouse_down = function(ev) {
-		ev.preventDefault();
-		if (ev.layerX || ev.layerX == 0) { // Firefox
-			ev._x = ev.layerX;
-			ev._y = ev.layerY;
-		}
-		else if (ev.offsetX || ev.offsetX == 0) { // Opera
-			ev._x = ev.offsetX;
-			ev._y = ev.offsetY;
-		}
-		world.click_at_point(ev._x, ev._y);
-	};
-	this.mouse_scroll = function(event) {
-		var delta = 0;
-		if (!event) event = window.event;
-		// normalize the delta
-		if (event.wheelDelta) {
-			// IE and Opera
-			delta = event.wheelDelta / 60;
-		}
-		else if (event.detail) {
-			// W3C
-			delta = -event.detail / 2;
-		}
-		delta = delta / Math.abs(delta);
-		if (delta != 0) {
-			world.user_did_zoom = true;
-			if (delta > 0) world.cam.scale_target *= 1.2;
-			if (delta < 0) world.cam.scale_target /= 1.2;
-			var fit = Math.min(world.canvas.width, world.canvas.height);
-			var max = fit / 4 / world.get_player().radius;
-			var min = fit / 4 / world.level_radius;
-			if (world.cam.scale_target > max) world.cam.scale_target = max;
-			if (world.cam.scale_target < min) world.cam.scale_target = min;
-		}
-	};
-	this.key_down = function(e) {
-		var code;
-		if (!e) var e = window.event;
-		if (e.keyCode) code = e.keyCode;
-		else if (e.which) code = e.which;
-		switch (code) {
-			case 72: // H
-				world.toggle_help();
-				break;
-			case 77: // M
-				world.music.mute();
-				break;
-			case 78: // N
-				world.music.next_song();
-				break;
-			case 80: // P
-				world.pause();
-				break;
-			case 82: // R
-				world.load_level();
-				break;
-			case 83: // S
-				world.shadows = !world.shadows;
-				break;
-		}
-	};
 	this.transfer_mass = function(cell1, cell2) {
 		var player = this.get_player();
 		// Determine bigger cell
@@ -312,7 +215,7 @@ function World(canvas) {
 		bigger.radius += mass_exchange / (2 * Math.PI * bigger.radius);
 		// If the player is the one gaining mass here, zoom the camera
 		if (bigger === player && !this.user_did_zoom) {
-			this.zoom_to_player();
+			this.renderer.cam.zoom_to_player();
 		}
 		// Check if we just killed one of the cells
 		if (smaller.radius <= 1) {
@@ -327,7 +230,6 @@ function World(canvas) {
 		// Cute animation thing
 		var player = this.get_player();
 		player.x_pos = player.y_pos = 0;
-		if (this.cam.scale_target > 0.538) this.cam.scale_target = 0.538;
 		for (var i = 1; i < this.cells.length; i++) {
 			var cell = this.cells[i];
 			if (!cell.dead) {
@@ -350,36 +252,6 @@ function World(canvas) {
 		this.frame_spacing = currentTick - this.lastTick;
 		this.frame_delta = this.frame_spacing * config.fps / 1000;
 		this.lastTick = currentTick;
-		// Canvas maintenance
-		this.canvas.height = window.innerHeight;
-		this.canvas.width = window.innerWidth;
-		// Background
-		this.ctx.fillStyle = "#1D40B5"; // Surrounding color of canvas outside of the level
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		this.ctx.beginPath();
-		this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-		this.ctx.closePath();
-		this.ctx.fill();
-		// Level boundary
-		this.ctx.fillStyle = "#2450E4"; // Background color of the level (inside the boundaries)
-		this.ctx.beginPath();
-		this.ctx.arc(this.cam.world_to_viewport_x(0), this.cam.world_to_viewport_y(0), Math.abs(this.level_radius * this.cam.scale), 0, Math.PI * 2, true);
-		this.ctx.closePath();
-		this.ctx.fill();
-		if (this.shadows) {
-			this.ctx.strokeStyle = "rgba(0,0,0,0.3)";
-			this.ctx.lineWidth = 2;
-			this.ctx.beginPath();
-			this.ctx.arc(this.cam.world_to_viewport_x(0) + 2, this.cam.world_to_viewport_y(0) + 4, this.level_radius * this.cam.scale, 0, Math.PI * 2, true);
-			this.ctx.closePath();
-			this.ctx.stroke();
-		}
-		this.ctx.strokeStyle = "#FFF";
-		this.ctx.lineWidth = 2;
-		this.ctx.beginPath();
-		this.ctx.arc(this.cam.world_to_viewport_x(0), this.cam.world_to_viewport_y(0), this.level_radius * this.cam.scale, 0, Math.PI * 2, true);
-		this.ctx.closePath();
-		this.ctx.stroke();
 		// Run collisions and draw everything
 		var smallest_big_mass = 9999999999,
 			total_usable_mass = 0,
@@ -397,7 +269,7 @@ function World(canvas) {
 				this.cells[i].update(this.frame_delta);
 				// Get some stats about orb sizes
 				curr_area = this.cells[i].area();
-				if (this.cells[i].radius > this.get_player().radius) {
+				if (this.cells[i].radius > player.radius) {
 					if (curr_area < smallest_big_mass) smallest_big_mass = curr_area;
 				}
 				else total_usable_mass += curr_area;
@@ -434,10 +306,6 @@ function World(canvas) {
 					if (i == 0) this.music.play_sound("bounce");
 				}
 			}
-			// If not the player, draw it now
-			if (i != 0) {
-				this.cells[i].draw(this.ctx, this.cam, this.shadows, this.get_player().radius);
-			}
 		}
 		// React to statistical events
 		if (!player.dead && !this.paused && !this.won) {
@@ -450,12 +318,9 @@ function World(canvas) {
 				this.show_message("warning");
 			}
 		}
-		// Draw player
-		player.draw(this.ctx, this.cam, this.shadows);
-		// Camera-track player
-		this.cam.update(player.x_pos, player.y_pos, this.frame_delta);
 		// Update music player
 		this.music.update();
+		this.renderer.update();
 	};
 	// Call init
 	this.init();
