@@ -53,6 +53,7 @@ function Control() {
 			case 78: // N
 				music.next_song();
 				break;
+			case 32: // Space
 			case 80: // P
 				world.pause();
 				break;

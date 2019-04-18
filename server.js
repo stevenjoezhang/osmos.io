@@ -25,7 +25,7 @@ app.get("/port", (req, res) => {
 	res.end(ans.toString());
 });
 /*
-var Game = require("./src/game-server.js");
+var Game = require("./src/game-server");
 var game = new Game();
 io.set("transports", ["websocket"]);
 io.on("connection", (socket) => {
@@ -48,7 +48,7 @@ io.on("connection", (socket) => {
 setInterval(() => {
 	game.tickFrame();
 }, 1000 / 60);
-
+/*
 for (var i = 0; i < parseInt(config.bots); i++) {
 	exec(`node ${path.join(__dirname, "paper-io-bot.js")} ws://localhost:${port}`, (error, stdout, stderr) => {
 		if (error) {
