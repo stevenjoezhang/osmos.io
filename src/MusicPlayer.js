@@ -1,3 +1,8 @@
+/*
+ @songArray: Music tracks (filename, song name, artist)
+ @sfxDict: Sound effects (identifier, filename)
+ */
+
 module.exports = function(songArray, sfxDict) {
 	// Constants
 	this.default_volume = 0.6;

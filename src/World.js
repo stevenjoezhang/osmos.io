@@ -26,11 +26,11 @@ function World(canvas) {
 	this.has_started = false; // Indicates if the intro menu has been dismissed at least once
 	this.shadows = true;
 	this.music = new MusicPlayer(
-		[ // Music tracks (filename, song name, artist)
+		[
 			//["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
 			//["music/rewob_-_Circles.ogg", "Circles", "rewob"],
 			["music/soundtrack.mp3", "Unknown", "Unknown"]
-		], { // Sound effects (identifier, filename)
+		], {
 			"blip": ["fx/blip.ogg"],
 			"win": ["fx/win.ogg"],
 			"death": ["fx/death.ogg"],
