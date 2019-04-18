@@ -2,10 +2,14 @@
 	margin: 0;
 	padding: 0;
 }
+@font-face {
+	font-family: FortuneCity;
+	src: url(FortuneCity.ttf);
+}
 body, html {
 	height: 100%;
 	color: white;
-	font-family: sans-serif;
+	font-family: FortuneCity, sans-serif;
 	overflow: hidden;
 }
 canvas {
@@ -36,10 +40,10 @@ canvas {
 	text-align: center;
 }
 #messages p:nth-child(1) {
-	font-size: 1.375em;
+	font-size: 1.5em;
 }
 #messages p:nth-child(2) {
-	font-size: 0.75em;
+	font-size: 0.8em;
 }
 ul#controls {
 	position: absolute;
@@ -58,7 +62,7 @@ ul#controls li label {
 	position: absolute;
 	top: 100%;
 	right: 0;
-	font-size: 0.875em;
+	font-size: 1em;
 	background-color: rgba(0, 0, 0, 0.5);
 	padding: 2px 4px;
 	border: 1px solid #555;
@@ -95,14 +99,14 @@ ul#controls li:hover label {
 	padding: 5px 0;
 	position: absolute;
 	bottom: 100%;
-	font-size: 1.5em;
+	font-size: 1.6em;
 }
 #helpbody {
 	overflow: auto;
 	height: 100%;
 	color: white;
 	text-shadow: 1px 1px 0px black;
-	font-size: 0.9em;
+	font-size: 1em;
 }
 #helpbody p {
 	margin: 0.5em 0;
@@ -112,13 +116,13 @@ ul#controls li:hover label {
 }
 #helpbody h2 {
 	margin-top: 1.7em;
-	font-size: 1em;
+	font-size: 1.2em;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.8);
 }
 #helpbody h3 {
 	margin-top: 1.5em;
 	margin-bottom: 0.2em;
-	font-size: 0.8em;
+	font-size: 1em;
 }
 #helpbody a, #helpbody a:hover {
 	color: white;
@@ -175,7 +179,7 @@ ul#controls li:hover label {
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
-	font-size: 0.7em;
+	font-size: 0.8em;
 	padding: 5px;
 	margin: 5px;
 	border-radius: 4px;
@@ -192,7 +196,7 @@ ul#controls li:hover label {
 	font-weight: bold;
 }
 #songtitle:before {
-	content: '\266B\00a0';
+	content: "\266B\00a0";
 }
 footer {
 	position: absolute;
@@ -203,7 +207,7 @@ footer a {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
-	font-size: 0.6em;
+	font-size: 0.8em;
 	text-transform: uppercase;
 }
 #logo, footer a, #controls li {
