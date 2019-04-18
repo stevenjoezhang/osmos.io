@@ -1,11 +1,10 @@
-module.exports = function(songArray, sfxDict, assetDir) {
+module.exports = function(songArray, sfxDict) {
 	// Constants
 	this.default_volume = 0.6;
 	// Variables
 	this.songs = songArray;
 	this.sounds = sfxDict;
-	if (assetDir) this.asset_dir = assetDir;
-	else this.asset_dir = "sounds/";
+	this.asset_dir = "sounds/";
 	this.inited = false;
 	this.song_volume = this.default_volume;
 	// State variables
@@ -81,7 +80,8 @@ module.exports = function(songArray, sfxDict, assetDir) {
 			this.muted = true;
 			document.getElementById("mute").children[0].className = "fas fa-2x fa-volume-mute";
 			document.getElementById("mute").children[1].innerText = "Unmute sounds [M]";
-		} else {
+		}
+		else {
 			// Unmute
 			this.song_audio.play();
 			this.muted = false;
