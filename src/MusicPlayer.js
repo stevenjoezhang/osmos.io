@@ -10,7 +10,7 @@ module.exports = function(songArray, sfxDict, assetDir) {
 	this.song_volume = this.default_volume;
 	// State variables
 	this.current_song = 0;
-	this.song_audio;
+	this.song_audio = null;
 	this.muted = false;
 	// Methods
 	this.init = function() {
@@ -27,7 +27,7 @@ module.exports = function(songArray, sfxDict, assetDir) {
 		if (this.songs.length > this.current_song) {
 			if (this.song_audio) {
 				this.song_audio.pause();
-				delete this.song_audio;
+				this.song_audio = null;
 			}
 			this.song_audio = new Audio(this.asset_dir + this.songs[this.current_song][0]);
 			this.song_audio.volume = this.default_volume;

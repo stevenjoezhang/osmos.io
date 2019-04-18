@@ -13,7 +13,8 @@ function Cell(xpos, ypos, radius) {
 	// Properties
 	this.dead = false;
 	// Player color
-	this.fillStyle = "rgb(115,219,255)";
+	//this.fillStyle = "rgb(115,219,255)";
+	this.fillStyle = "rgb(55,255,85)";
 	// Methods
 	this.reset = reset_cell;
 	this.update = update_cell;
