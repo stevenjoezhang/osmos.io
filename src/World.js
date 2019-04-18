@@ -162,9 +162,8 @@ function World(canvas) {
 		// Define the player first
 		this.cells.push(new Cell(0, 0, 30));
 		// Generate a bunch of random cells
-		var num_cells = 30;
 		var rad, ang, r, x, y, cell;
-		for (var i = 0; i < num_cells; i++) {
+		for (var i = 0; i < config.const.NUM_CELLS; i++) {
 			if (i < 4) rad = 5 + (Math.random() * 5); // Small cells
 			else if (i < 6) rad = 40 + (Math.random() * 15); // Big cells
 			else rad = 7 + (Math.random() * 35); // Everything else
@@ -392,59 +391,58 @@ function World(canvas) {
 			total_usable_mass = 0,
 			curr_area;
 		for (var i = 0; i < this.cells.length; i++) {
-			if (!this.cells[i].dead) {
-				if (!this.paused) {
-					for (var j = 0; j < this.cells.length; j++) {
-						if ((i != j) && (!this.cells[j].dead)) {
-							if (this.cells[i].collides_with(this.cells[j])) {
-								this.transfer_mass(this.cells[i], this.cells[j]);
-							}
+			if (this.cells[i].dead) continue;
+			if (!this.paused) {
+				for (var j = 0; j < this.cells.length; j++) {
+					if ((i != j) && (!this.cells[j].dead)) {
+						if (this.cells[i].collides_with(this.cells[j])) {
+							this.transfer_mass(this.cells[i], this.cells[j]);
 						}
 					}
-					this.cells[i].update(this.frame_delta);
-					// Get some stats about orb sizes
-					curr_area = this.cells[i].area();
-					if (this.cells[i].radius > this.get_player().radius) {
-						if (curr_area < smallest_big_mass) smallest_big_mass = curr_area;
-					}
-					else total_usable_mass += curr_area;
-					// If cell is outside of level bounds, fix it
-					var cell_x = this.cells[i].x_pos,
-						cell_y = this.cells[i].y_pos,
-						cellrad = this.cells[i].radius,
-						dist_from_origin = Math.sqrt(Math.pow(cell_x, 2) + Math.pow(cell_y, 2));
-					if (dist_from_origin + cellrad > this.level_radius) {
-						// Do some homework
-						var cell_xvel = this.cells[i].x_veloc,
-							cell_yvel = this.cells[i].y_veloc;
-						// Move cell safely inside bounds
-						this.cells[i].x_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
-						this.cells[i].y_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
-						cell_x = this.cells[i].x_pos;
-						cell_y = this.cells[i].y_pos;
-						dist_from_origin = Math.sqrt(Math.pow(cell_x, 2) + Math.pow(cell_y, 2));
-						// Bounce!
-						// Find speed
-						var cell_speed = Math.sqrt(Math.pow(cell_xvel, 2) + Math.pow(cell_yvel, 2));
-						// Find angles of "center to cell" and cell's velocity
-						var angle_from_origin = angleForVector(cell_x, cell_y);
-						var veloc_ang = angleForVector(cell_xvel, cell_yvel);
-						// Get new velocity angle
-						var new_veloc_ang = Math.PI + angle_from_origin + (angle_from_origin - veloc_ang);
-						// Normalize the vector from the origin to the cell's new position
-						var center_to_cell_norm_x = -cell_x * (1 / dist_from_origin);
-						var center_to_cell_norm_y = -cell_y * (1 / dist_from_origin);
-						// Set new velocity components
-						this.cells[i].x_veloc = cell_speed * Math.cos(new_veloc_ang);
-						this.cells[i].y_veloc = cell_speed * Math.sin(new_veloc_ang);
-						// If this cell is the player, make a bounce noise
-						if (i == 0) this.music.play_sound("bounce");
-					}
 				}
-				// If not the player, draw it now
-				if (i != 0) {
-					this.cells[i].draw(this.ctx, this.cam, this.shadows, this.get_player().radius);
+				this.cells[i].update(this.frame_delta);
+				// Get some stats about orb sizes
+				curr_area = this.cells[i].area();
+				if (this.cells[i].radius > this.get_player().radius) {
+					if (curr_area < smallest_big_mass) smallest_big_mass = curr_area;
 				}
+				else total_usable_mass += curr_area;
+				// If cell is outside of level bounds, fix it
+				var cell_x = this.cells[i].x_pos,
+					cell_y = this.cells[i].y_pos,
+					cellrad = this.cells[i].radius,
+					dist_from_origin = Math.sqrt(Math.pow(cell_x, 2) + Math.pow(cell_y, 2));
+				if (dist_from_origin + cellrad > this.level_radius) {
+					// Do some homework
+					var cell_xvel = this.cells[i].x_veloc,
+						cell_yvel = this.cells[i].y_veloc;
+					// Move cell safely inside bounds
+					this.cells[i].x_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
+					this.cells[i].y_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
+					cell_x = this.cells[i].x_pos;
+					cell_y = this.cells[i].y_pos;
+					dist_from_origin = Math.sqrt(Math.pow(cell_x, 2) + Math.pow(cell_y, 2));
+					// Bounce!
+					// Find speed
+					var cell_speed = Math.sqrt(Math.pow(cell_xvel, 2) + Math.pow(cell_yvel, 2));
+					// Find angles of "center to cell" and cell's velocity
+					var angle_from_origin = angleForVector(cell_x, cell_y);
+					var veloc_ang = angleForVector(cell_xvel, cell_yvel);
+					// Get new velocity angle
+					var new_veloc_ang = Math.PI + angle_from_origin + (angle_from_origin - veloc_ang);
+					// Normalize the vector from the origin to the cell's new position
+					var center_to_cell_norm_x = -cell_x * (1 / dist_from_origin);
+					var center_to_cell_norm_y = -cell_y * (1 / dist_from_origin);
+					// Set new velocity components
+					this.cells[i].x_veloc = cell_speed * Math.cos(new_veloc_ang);
+					this.cells[i].y_veloc = cell_speed * Math.sin(new_veloc_ang);
+					// If this cell is the player, make a bounce noise
+					if (i == 0) this.music.play_sound("bounce");
+				}
+			}
+			// If not the player, draw it now
+			if (i != 0) {
+				this.cells[i].draw(this.ctx, this.cam, this.shadows, this.get_player().radius);
 			}
 		}
 		// React to statistical events
