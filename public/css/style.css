@@ -21,7 +21,7 @@ canvas {
 	left: 5px;
 	z-index: 1;
 }
-.messages {
+#messages {
 	display: none;
 	position: absolute;
 	bottom: 15%;
@@ -32,13 +32,13 @@ canvas {
 	border-radius: 10px;
 	padding: 20px 0;
 }
-.messages p {
+#messages p {
 	text-align: center;
 }
-.messages #mainmessage {
+#messages p:nth-child(1) {
 	font-size: 1.375em;
 }
-.messages #subtext {
+#messages p:nth-child(2) {
 	font-size: 0.75em;
 }
 ul#controls {

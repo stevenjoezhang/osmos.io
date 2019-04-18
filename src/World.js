@@ -42,44 +42,79 @@ function World(canvas) {
 		// Event registration
 		this.canvas.addEventListener("mousedown", this.mouse_down, false);
 		this.canvas.addEventListener("touchstart", this.touch_start, false);
-		if (window.addEventListener) {
-			document.addEventListener("DOMMouseScroll", this.mouse_scroll, false);
-			document.addEventListener("mousewheel", this.mouse_scroll, false);
-			window.addEventListener("keydown", this.key_down, false);
-			window.addEventListener("blur", function() {
-				world.pause(true);
-			}, false);
-			document.getElementById("mute").addEventListener("click", function() {
-				world.music.mute();
-			}, false);
-			document.getElementById("newlevel").addEventListener("click", function() {
-				world.load_level();
-			}, false);
-			document.getElementById("pause").addEventListener("click", function() {
-				world.pause();
-			}, false);
-			document.getElementById("help").addEventListener("click", function() {
-				world.toggle_help();
-			}, false);
-			document.getElementById("pausedmessage").addEventListener("click", function() {
-				world.pause();
-			}, false);
-			document.getElementById("deathmessage").addEventListener("click", function() {
-				world.load_level();
-			}, false);
-			document.getElementById("warningmessage").addEventListener("click", function() {
-				world.load_level();
-			}, false);
-			document.getElementById("successmessage").addEventListener("click", function() {
-				world.load_level();
-			}, false);
-			document.getElementById("playbutton").addEventListener("click", function() {
-				world.toggle_help();
-				// Play a sound in order to allow any sound playback at all on iOS
-				world.music.play_sound("win");
-			}, false);
-		}
+
+		document.addEventListener("DOMMouseScroll", this.mouse_scroll, false);
+		document.addEventListener("mousewheel", this.mouse_scroll, false);
+		window.addEventListener("keydown", this.key_down, false);
+		window.addEventListener("blur", function() {
+			world.pause(true);
+		}, false);
+		document.getElementById("mute").addEventListener("click", function() {
+			world.music.mute();
+		}, false);
+		document.getElementById("newlevel").addEventListener("click", function() {
+			world.load_level();
+		}, false);
+		document.getElementById("pause").addEventListener("click", function() {
+			world.pause();
+		}, false);
+		document.getElementById("help").addEventListener("click", function() {
+			world.toggle_help();
+		}, false);
+		document.getElementById("messages").addEventListener("click", function() {
+			switch (document.getElementById("messages").className) {
+				case "paused":
+					world.pause();
+					break;
+				case "death":
+				case "warning":
+				case "success":
+					world.load_level();
+					break;
+				default:
+					break;
+			}
+		}, false);
+		document.getElementById("playbutton").addEventListener("click", function() {
+			world.toggle_help();
+			// Play a sound in order to allow any sound playback at all on iOS
+			world.music.play_sound("win");
+		}, false);
+
 		this.music.init();
+	};
+	this.show_message = function(id) {
+		this.clear_msgs(true);
+		var div = document.getElementById("messages");
+		div.className = id;
+		div.style.display = "block";
+		var content;
+		switch (id) {
+			case "paused":
+				content = "<p>Paused</p><p>Click here to resume playing.</p>";
+				break;
+			case "death":
+				content = "<p>You were consumed!</p><p>Click here to restart the level.</p>";
+				break;
+			case "warning":
+				content = "<p>Uhhhhh.</p><p>You may just wanna click here to restart the level.</p>";
+				break;
+			case "success":
+				content = "<p>Good!</p><p>Click here to start another random level.</p>";
+				break;
+			default:
+				content = "";
+				break;
+		}
+		div.innerHTML = content;
+	};
+	this.clear_msgs = function(forceclear) {
+		document.getElementById("messages").style.display = "none";
+		// Re-show important messages that are still relevant
+		if (!forceclear) {
+			if (this.won) this.show_message("success");
+			else if (this.get_player() && this.get_player().dead) this.show_message("death");
+		}
 	};
 	this.toggle_help = function() {
 		var overlay = document.getElementById("helpoverlay");
@@ -107,7 +142,7 @@ function World(canvas) {
 		}
 		else {
 			// Pause
-			this.show_message("pausedmessage");
+			this.show_message("paused");
 			this.paused = true;
 			document.getElementById("pause").children[0].className = "fas fa-2x fa-play";
 			document.getElementById("pause").children[1].innerText = "Play [P]";
@@ -293,25 +328,9 @@ function World(canvas) {
 			if (smaller === player) this.player_did_die();
 		}
 	};
-	this.clear_msgs = function(forceclear) {
-		var msgs = document.getElementsByClassName("messages");
-		for (var i = 0; i < msgs.length; i++) msgs[i].style.display = "none";
-		// Re-show important messages that are still relevant
-		if (!forceclear) {
-			if (this.won) this.show_message("successmessage");
-			else if (this.get_player() && this.get_player().dead) this.show_message("deathmessage");
-		}
-	};
-	this.show_message = function(id) {
-		this.clear_msgs(true);
-		var div = document.getElementById(id);
-		if (div) {
-			div.style.display = "block";
-		}
-	};
 	this.player_did_die = function() {
 		this.music.play_sound("death");
-		this.show_message("deathmessage");
+		this.show_message("death");
 		// Cute animation thing
 		var player = this.get_player();
 		player.x_pos = player.y_pos = 0;
@@ -328,7 +347,7 @@ function World(canvas) {
 		if (!this.won) {
 			this.won = true;
 			this.music.play_sound("win");
-			this.show_message("successmessage");
+			this.show_message("success");
 		}
 	};
 	this.update = function() {
@@ -438,7 +457,7 @@ function World(canvas) {
 			}
 			else if (total_usable_mass < smallest_big_mass) {
 				// Display the "not looking good..." message
-				this.show_message("warningmessage");
+				this.show_message("warning");
 			}
 		}
 		// Draw player
