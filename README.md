@@ -1,34 +1,52 @@
-# Mosmos
-
-## Play
-
-http://stepheneisenhauer.com/demos/browsmos/
+# Osmoss
 
 ## About
 
-Mosmos is a game the web browser, made entirely using HTML5, and inspired 
+Osmoss is a game the web browser, made entirely using HTML5, and inspired 
 heavily by the gameplay of Osmos.
 
 The rules are simple; click to propel yourself around, and try to absorb 
 smaller cells until you become the biggest. Watch out for larger cells, or 
 they will absorb you!
 
-## Install
-
-Mosmos can also be installed as an app in Chromium or Google Chrome, 
-requiring no internet connectivity to play. It can be installed via the 
-Chrome Web Store here:
-
-[![Available in the Chrome Web Store](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/browsmos/kmijdbjgikpiadlbldnmldfgfepigkip)
-
 ## Screenshots
 
-![Screenshot 1](http://stepheneisenhauer.com/images/screenshots/browsmos.png)
+![Screenshot](screenshot.png)
 
-## Other Links
+## Install
 
-* Homepage: http://stepheneisenhauer.com/browsmos/
+```bash
+# Clone this repository
+git clone https://github.com/stevenjoezhang/osmoss.git
+# Go into the repository
+cd osmoss
+# Install dependencies
+npm install
+```
+
+## Running
+
+After cloning this repository, run the follow commands to install dependencies and set up server. Enjoy!
+
+```bash
+npm start
+```
+
+You can configure the game by editing `config.json`.
+
+**WARNING: Remember to build again after editing any file, include `config.json`.**
+
+## Build
+
+```bash
+npm run build
+```
 
 ## License
 
-Mosmos is forked from browsmos.
+Osmoss is forked from [Browsmos](https://github.com/BHSPitMonkey/Browsmos).
+
+> ### License
+> Any JavaScript sources within Browsmos are hereby licensed under the Simplified BSD License. You are free to modify and redistribute Browsmos, but, if you do, please:
+> - don't distribute modifications as though they are my own
+> - consider including an attribution, preferably linking to this page
