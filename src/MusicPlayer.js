@@ -18,6 +18,7 @@ module.exports = function(songArray, sfxDict) {
 	this.muted = false;
 	// Methods
 	this.init = function() {
+		this.current_song = Math.floor(Math.random() * songArray.length);
 		this.load_song();
 		this.inited = true;
 		for (var i in this.sounds) {

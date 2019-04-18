@@ -14,6 +14,11 @@ window.onload = function() {
 	window.world = new World(canvas);
 	// Initialize the World
 	world.load_level();
+	// If we're just now starting the game
+	if (!world.has_started) {
+		world.music.play_song();
+		world.has_started = true;
+	}
 
 	// Create requestAnimFrame if it doesn't exist
 	window.requestAnimFrame = window.requestAnimationFrame
