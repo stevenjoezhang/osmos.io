@@ -87,14 +87,15 @@ ul#controls li:hover label {
 #helpheader {
 	width: 100%;
 	background: #2F8AA1;
-	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.5, #13728A), color-stop(0.51, #2F8AA1), color-stop(1, #6ACDD4));
-	background-image: -moz-linear-gradient( center bottom, #13728A 50%, #2F8AA1 51%, #6ACDD4 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, #13728A), color-stop(0.51, #2F8AA1), color-stop(1, #6ACDD4));
+	background-image: -moz-linear-gradient(center bottom, #13728A 50%, #2F8AA1 51%, #6ACDD4 100%);
 	border-top-left-radius: 16px;
 	border-top-right-radius: 16px;
 	text-align: center;
-	padding: 10px 0;
+	padding: 5px 0;
 	position: absolute;
 	bottom: 100%;
+	font-size: 1.5em;
 }
 #helpbody {
 	overflow: auto;
@@ -132,8 +133,8 @@ ul#controls li:hover label {
 	height: 45px;
 	width: 100%;
 	background: #474747;
-	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, #212121), color-stop(1, #414141));
-	background-image: -moz-linear-gradient( center bottom, #212121 0%, #414141 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #212121), color-stop(1, #414141));
+	background-image: -moz-linear-gradient(center bottom, #212121 0%, #414141 100%);
 	border-bottom-left-radius: 16px;
 	border-bottom-right-radius: 16px;
 	display: table-cell;
@@ -207,8 +208,6 @@ footer a {
 }
 #logo, footer a, #controls li {
 	opacity: 0.3;
-	-webkit-transition: opacity .15s linear;
-	-moz-transition: opacity .15s linear;
 	transition: opacity .15s linear;
 }
 #logo:hover, footer a:hover {
