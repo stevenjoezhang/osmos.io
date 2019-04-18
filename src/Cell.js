@@ -78,7 +78,8 @@ function draw_cell(ctx, cam, shadow, player_radius) {
 				//ctx.fillStyle = "#FFAF00"; // yellow
 			}
 			else ctx.fillStyle = "rgb(54,182,255)"; // blue
-		} else ctx.fillStyle = this.fillStyle;
+		}
+		else ctx.fillStyle = this.fillStyle;
 		ctx.beginPath();
 		ctx.arc(cam.world_to_viewport_x(this.x_pos), cam.world_to_viewport_y(this.y_pos), this.radius * cam.scale, 0, Math.PI * 2, true);
 		ctx.closePath();

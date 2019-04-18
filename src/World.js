@@ -87,9 +87,8 @@ function World(canvas) {
 		if (overlay.style.display == "none") {
 			this.pause(true); // Pause the game
 			overlay.style.display = "block"; // Show overlay
-		} else {
-			overlay.style.display = "none"; // Hide overlay
 		}
+		else overlay.style.display = "none"; // Hide overlay
 		// If we're just now starting the game
 		if (!this.has_started) {
 			this.load_level();
@@ -105,7 +104,8 @@ function World(canvas) {
 			document.getElementById("pause").children[0].className = "fas fa-2x fa-pause";
 			document.getElementById("pause").children[1].innerText = "Pause [P]";
 			this.music.raise_volume();
-		} else {
+		}
+		else {
 			// Pause
 			this.show_message("pausedmessage");
 			this.paused = true;
@@ -208,7 +208,8 @@ function World(canvas) {
 		if (ev.layerX || ev.layerX == 0) { // Firefox
 			ev._x = ev.layerX;
 			ev._y = ev.layerY;
-		} else if (ev.offsetX || ev.offsetX == 0) { // Opera
+		}
+		else if (ev.offsetX || ev.offsetX == 0) { // Opera
 			ev._x = ev.offsetX;
 			ev._y = ev.offsetY;
 		}
@@ -221,7 +222,8 @@ function World(canvas) {
 		if (event.wheelDelta) {
 			// IE and Opera
 			delta = event.wheelDelta / 60;
-		} else if (event.detail) {
+		}
+		else if (event.detail) {
 			// W3C
 			delta = -event.detail / 2;
 		}
@@ -387,7 +389,8 @@ function World(canvas) {
 					curr_area = this.cells[i].area();
 					if (this.cells[i].radius > this.get_player().radius) {
 						if (curr_area < smallest_big_mass) smallest_big_mass = curr_area;
-					} else total_usable_mass += curr_area;
+					}
+					else total_usable_mass += curr_area;
 					// If cell is outside of level bounds, fix it
 					var cell_x = this.cells[i].x_pos,
 						cell_y = this.cells[i].y_pos,
@@ -432,7 +435,8 @@ function World(canvas) {
 			if (smallest_big_mass == 9999999999) {
 				// Player won
 				this.player_did_win();
-			} else if (total_usable_mass < smallest_big_mass) {
+			}
+			else if (total_usable_mass < smallest_big_mass) {
 				// Display the "not looking good..." message
 				this.show_message("warningmessage");
 			}
