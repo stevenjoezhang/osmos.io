@@ -12,7 +12,7 @@ function World(canvas) {
 	this.canvas = canvas;
 	this.ctx = this.canvas.getContext("2d");
 	this.cam = new Camera(canvas);
-	this._lastTick = (new Date()).getTime(); // for timer
+	this._lastTick = new Date().getTime(); // for timer
 	this.frameSpacing; // for timer
 	this.frame_delta; // for timer
 	this.surr_color = "#1D40B5"; // Surrounding color of canvas outside of the level
@@ -278,26 +278,26 @@ function World(canvas) {
 		else if (e.which) code = e.which;
 		if (world.debug) console.log("Pressed key with code " + code);
 		switch (code) {
-			case 80: // P
-				world.pause();
-				break;
-			case 82: // R
-				world.load_level();
-				break;
 			case 68: // D
 				world.debug = !world.debug;
 				break;
 			case 72: // H
 				world.toggle_help();
 				break;
-			case 83: // S
-				world.shadows = !world.shadows;
-				break;
 			case 77: // M
 				world.music.mute();
 				break;
 			case 78: // N
 				world.music.next_song();
+				break;
+			case 80: // P
+				world.pause();
+				break;
+			case 82: // R
+				world.load_level();
+				break;
+			case 83: // S
+				world.shadows = !world.shadows;
 				break;
 		}
 	};
@@ -353,7 +353,7 @@ function World(canvas) {
 	this.update = function() {
 		var player = this.get_player();
 		// Advance timer
-		var currentTick = (new Date()).getTime();
+		var currentTick = new Date().getTime();
 		this.frameSpacing = currentTick - this._lastTick;
 		this.frame_delta = this.frameSpacing * config.fps / 1000;
 		this._lastTick = currentTick;
