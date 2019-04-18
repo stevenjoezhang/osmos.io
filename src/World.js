@@ -24,7 +24,6 @@ function World(canvas) {
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
 	this.paused = false;
 	this.has_started = false; // Indicates if the intro menu has been dismissed at least once
-	this.debug = false;
 	this.shadows = true;
 	this.music = new MusicPlayer(
 		[ // Music tracks (filename, song name, artist)
@@ -276,11 +275,7 @@ function World(canvas) {
 		if (!e) var e = window.event;
 		if (e.keyCode) code = e.keyCode;
 		else if (e.which) code = e.which;
-		if (world.debug) console.log("Pressed key with code " + code);
 		switch (code) {
-			case 68: // D
-				world.debug = !world.debug;
-				break;
 			case 72: // H
 				world.toggle_help();
 				break;
@@ -360,8 +355,6 @@ function World(canvas) {
 		// Canvas maintenance
 		this.canvas.height = window.innerHeight;
 		this.canvas.width = window.innerWidth;
-		//var center = [this.canvas.width / 2, this.canvas.height / 2];
-		//var viewport_radius = Math.min(this.canvas.height, this.canvas.width) / 2;
 		// Background
 		this.ctx.fillStyle = this.surr_color;
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -469,10 +462,6 @@ function World(canvas) {
 	};
 	// Call init
 	this.init();
-}
-
-function rad2deg(rad) {
-	return (rad / (2 * Math.PI)) * 360;
 }
 
 function angleForVector(x, y) {
