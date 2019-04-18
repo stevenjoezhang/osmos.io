@@ -41,9 +41,9 @@ function World(canvas) {
 		// Event registration
 		this.canvas.addEventListener("mousedown", this.mouse_down, false);
 		this.canvas.addEventListener("touchstart", this.touch_start, false);
+		this.canvas.addEventListener("DOMMouseScroll", this.mouse_scroll, false);
+		this.canvas.addEventListener("mousewheel", this.mouse_scroll, false);
 
-		document.addEventListener("DOMMouseScroll", this.mouse_scroll, false);
-		document.addEventListener("mousewheel", this.mouse_scroll, false);
 		window.addEventListener("keydown", this.key_down, false);
 		window.addEventListener("blur", function() {
 			world.pause(true);
@@ -122,10 +122,13 @@ function World(canvas) {
 			this.pause(true); // Pause the game
 			overlay.style.display = "block"; // Show overlay
 		}
-		else overlay.style.display = "none"; // Hide overlay
+		else {
+			this.pause();
+			overlay.style.display = "none"; // Hide overlay
+		}
 		// If we're just now starting the game
 		if (!this.has_started) {
-			this.load_level();
+			//this.load_level();
 			this.music.play_song();
 			this.has_started = true;
 		}

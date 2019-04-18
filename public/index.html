@@ -16,9 +16,9 @@
 <canvas id="canvas">Sorry, no canvas for you!</canvas>
 <ul id="controls">
 	<li id="help"><i class="fas fa-2x fa-question-circle"></i><label>Help [H]</label></li>
-	<li id="pause"><i class="fas fa-2x fa-pause"></i><label>Pause [P]</label></li>
-	<li id="newlevel"><i class="fas fa-2x fa-dice-six"></i><label>New random level [R]</label></li>
 	<li id="mute"><i class="fas fa-2x fa-volume-up"></i><label>Mute sounds [M]</label></li>
+	<li id="newlevel"><i class="fas fa-2x fa-dice-six"></i><label>New random level [R]</label></li>
+	<li id="pause"><i class="fas fa-2x fa-pause"></i><label>Pause [P]</label></li>
 </ul>
 <div id="songinfo" class="idle">
 	<div id="songtitle"></div>
@@ -26,10 +26,10 @@
 </div>
 <div id="messages" class="">
 </div>
-<div id="helpoverlay">
+<div id="helpoverlay" style="display: none;">
 	<div id="helpwindow">
 		<div id="helpheader">
-			<img id="helplogo" src="img/logo.svg" alt="Osmoss" width="290"/>
+			About
 		</div>
 		<div id="helpbody">
 			<div id="helpbody-inner">
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		<div id="helpfooter">
-			<button id="playbutton">Begin playing</button>
+			<button id="playbutton">Resume</button>
 		</div>
 	</div>
 </div>
