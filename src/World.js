@@ -5,21 +5,20 @@ var config = require("../config.json");
 
 function World(canvas) {
 	// Constants
-	this.transfer_rate_k = 0.25;
+	this.level_size = config.consts.LEVEL_SIZE; // Just a default; Will be set in load_level
+	this.level_radius = config.consts.LEVEL_RADIUS; // Define level boundary
+	this.level_total_mass = NaN; // Will store the total mass of all cells at a given time
 	// Variables and setup
 	this.cells = []; // Array of cells
 	// Canvas Setup
 	this.canvas = canvas;
 	this.ctx = this.canvas.getContext("2d");
 	this.cam = new Camera(canvas);
-	this._lastTick = new Date().getTime(); // for timer
-	this.frameSpacing; // for timer
-	this.frame_delta; // for timer
 	this.surr_color = "#1D40B5"; // Surrounding color of canvas outside of the level
 	this.bg_color = "#2450E4"; // Background color of the level (inside the boundaries)
-	this.level_width = 800; // Just a default; Will be set in load_level
-	this.level_height = 800; // Just a default; Will be set in load_level
-	this.level_total_mass; // Will store the total mass of all cells at a given time
+	this.lastTick = new Date().getTime(); // for timer
+	this.frameSpacing; // for timer
+	this.frame_delta; // for timer
 	this.won = false; // Indicates if the player has won (and is now just basking in his own glory)
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
 	this.paused = false;
@@ -153,15 +152,13 @@ function World(canvas) {
 	};
 	this.zoom_to_player = function() {
 		// Scale 1x looks best when player radius is 40
-		this.cam.scale_target = 40 / this.get_player().radius;
+		this.cam.scale_target = this.level_size / 10 / this.get_player().radius;
 	};
 	this.load_level = function() {
 		this.cells = [];
 		this.user_did_zoom = false;
 		this.won = false;
 		this.clear_msgs();
-		// Define level boundary
-		this.level_radius = 500;
 		// Define the player first
 		this.cells.push(new Cell(0, 0, 30));
 		// Generate a bunch of random cells
@@ -182,15 +179,17 @@ function World(canvas) {
 		}
 		// Center camera over level
 		if (this.cam.x == 0 && this.cam.y == 0) {
-			this.cam.x = this.level_width / 2;
-			this.cam.y = this.level_width / 2;
+			this.cam.x = this.level_size / 2;
+			this.cam.y = this.level_size / 2;
 		}
 		this.cam.x_target = this.cam.x;
 		this.cam.y_target = this.cam.y;
 		this.zoom_to_player();
 		// Count total cell mass for loaded level
 		this.level_total_mass = 0;
-		for (var i = 0; i < this.cells.length; i++) this.level_total_mass += this.cells[i].area();
+		for (var i = 0; i < this.cells.length; i++) {
+			this.level_total_mass += this.cells[i].area();
+		}
 	};
 	this.get_player = function() {
 		if (this.cells.length > 0) return this.cells[0];
@@ -269,8 +268,11 @@ function World(canvas) {
 			world.user_did_zoom = true;
 			if (delta > 0) world.cam.scale_target *= 1.2;
 			if (delta < 0) world.cam.scale_target /= 1.2;
-			if (world.cam.scale_target > 400 / world.get_player().radius) world.cam.scale_target = 400 / world.get_player().radius;
-			if (world.cam.scale_target < 10 / world.get_player().radius) world.cam.scale_target = 10 / world.get_player().radius;
+			var fit = Math.min(world.canvas.width, world.canvas.height);
+			var max = fit / 2 / world.get_player().radius;
+			var min = fit / 4 / world.level_radius;
+			if (world.cam.scale_target > max) world.cam.scale_target = max;
+			if (world.cam.scale_target < min) world.cam.scale_target = min;
 		}
 	};
 	this.key_down = function(e) {
@@ -352,9 +354,9 @@ function World(canvas) {
 		var player = this.get_player();
 		// Advance timer
 		var currentTick = new Date().getTime();
-		this.frameSpacing = currentTick - this._lastTick;
+		this.frameSpacing = currentTick - this.lastTick;
 		this.frame_delta = this.frameSpacing * config.fps / 1000;
-		this._lastTick = currentTick;
+		this.lastTick = currentTick;
 		// Canvas maintenance
 		this.canvas.height = window.innerHeight;
 		this.canvas.width = window.innerWidth;
