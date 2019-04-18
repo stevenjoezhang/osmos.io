@@ -31,18 +31,20 @@ module.exports = function(songArray, sfxDict, assetDir) {
 			}
 			this.song_audio = new Audio(this.asset_dir + this.songs[this.current_song][0]);
 			this.song_audio.volume = this.default_volume;
-			this.song_audio.addEventListener('ended', function() {
+			this.song_audio.addEventListener("ended", function() {
 				world.music.next_song();
 			}, false);
 			// Display metadata
-			var infobox = document.getElementById('songinfo');
-			var titlebox = document.getElementById('songtitle');
-			var artistbox = document.getElementById('songartist');
+			var infobox = document.getElementById("songinfo");
+			var titlebox = document.getElementById("songtitle");
+			var artistbox = document.getElementById("songartist");
 			if (infobox && titlebox && artistbox) {
 				titlebox.innerText = this.songs[this.current_song][1];
 				artistbox.innerText = this.songs[this.current_song][2];
 				infobox.className = "featured";
-				setTimeout("document.getElementById('songinfo').className='idle';", 2000);
+				setTimeout(function() {
+					document.getElementById("songinfo").className = "idle";
+				}, 2000);
 			}
 		}
 	};
