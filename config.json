@@ -3,10 +3,6 @@
 	"bots": 5,
 	"fps": 30,
 	"consts": {
-		"GRID_COUNT": 100,
-		"CELL_WIDTH": 40,
-		"SPEED": 5,
-		"BORDER_WIDTH": 20,
 		"MAX_PLAYERS": 30,
 		"NEW_PLAYER_LAG": 60,
 		"LEADERBOARD_NUM": 5,

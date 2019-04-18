@@ -143,7 +143,6 @@ function World(canvas) {
 			cell.y_veloc = (Math.random() - 0.5) * 0.35;
 			this.cells.push(cell);
 		}
-		delete cell;
 		// Center camera over level
 		if (this.cam.x == 0 && this.cam.y == 0) {
 			this.cam.x = this.level_width / 2;
