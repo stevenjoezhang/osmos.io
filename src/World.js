@@ -7,18 +7,16 @@ function World(canvas) {
 	// Constants
 	this.level_size = config.consts.LEVEL_SIZE; // Just a default; Will be set in load_level
 	this.level_radius = config.consts.LEVEL_RADIUS; // Define level boundary
-	this.level_total_mass = NaN; // Will store the total mass of all cells at a given time
 	// Variables and setup
 	this.cells = []; // Array of cells
 	// Canvas Setup
 	this.canvas = canvas;
 	this.ctx = this.canvas.getContext("2d");
 	this.cam = new Camera(canvas);
-	this.surr_color = "#1D40B5"; // Surrounding color of canvas outside of the level
-	this.bg_color = "#2450E4"; // Background color of the level (inside the boundaries)
-	this.lastTick = new Date().getTime(); // for timer
-	this.frameSpacing; // for timer
-	this.frame_delta; // for timer
+	// For timer
+	this.lastTick = new Date().getTime();
+	this.frame_spacing;
+	this.frame_delta;
 	this.won = false; // Indicates if the player has won (and is now just basking in his own glory)
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
 	this.paused = false;
@@ -163,7 +161,7 @@ function World(canvas) {
 		this.cells.push(new Cell(0, 0, 30));
 		// Generate a bunch of random cells
 		var rad, ang, r, x, y, cell;
-		for (var i = 0; i < config.const.NUM_CELLS; i++) {
+		for (var i = 0; i < config.consts.NUM_CELLS; i++) {
 			if (i < 4) rad = 5 + (Math.random() * 5); // Small cells
 			else if (i < 6) rad = 40 + (Math.random() * 15); // Big cells
 			else rad = 7 + (Math.random() * 35); // Everything else
@@ -184,11 +182,6 @@ function World(canvas) {
 		this.cam.x_target = this.cam.x;
 		this.cam.y_target = this.cam.y;
 		this.zoom_to_player();
-		// Count total cell mass for loaded level
-		this.level_total_mass = 0;
-		for (var i = 0; i < this.cells.length; i++) {
-			this.level_total_mass += this.cells[i].area();
-		}
 	};
 	this.get_player = function() {
 		if (this.cells.length > 0) return this.cells[0];
@@ -353,21 +346,21 @@ function World(canvas) {
 		var player = this.get_player();
 		// Advance timer
 		var currentTick = new Date().getTime();
-		this.frameSpacing = currentTick - this.lastTick;
-		this.frame_delta = this.frameSpacing * config.fps / 1000;
+		this.frame_spacing = currentTick - this.lastTick;
+		this.frame_delta = this.frame_spacing * config.fps / 1000;
 		this.lastTick = currentTick;
 		// Canvas maintenance
 		this.canvas.height = window.innerHeight;
 		this.canvas.width = window.innerWidth;
 		// Background
-		this.ctx.fillStyle = this.surr_color;
+		this.ctx.fillStyle = "#1D40B5"; // Surrounding color of canvas outside of the level
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.ctx.beginPath();
 		this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
 		this.ctx.closePath();
 		this.ctx.fill();
 		// Level boundary
-		this.ctx.fillStyle = this.bg_color;
+		this.ctx.fillStyle = "#2450E4"; // Background color of the level (inside the boundaries)
 		this.ctx.beginPath();
 		this.ctx.arc(this.cam.world_to_viewport_x(0), this.cam.world_to_viewport_y(0), Math.abs(this.level_radius * this.cam.scale), 0, Math.PI * 2, true);
 		this.ctx.closePath();
