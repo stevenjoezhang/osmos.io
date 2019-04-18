@@ -12,26 +12,26 @@ module.exports = function(canvas) {
 	this.scale_target = 1;
 	// Methods
 	this.world_to_viewport = function(n, dimension) {
-		var canvas_side_length = (dimension == 'x') ? this.canvas.width : this.canvas.height;
-		var offset = (dimension == 'x') ? this.x : this.y;
+		var canvas_side_length = (dimension == "x") ? this.canvas.width : this.canvas.height;
+		var offset = (dimension == "x") ? this.x : this.y;
 		return (n * this.scale) + (canvas_side_length / 2) - (offset * this.scale);
 	};
 	this.world_to_viewport_x = function(x) {
-		return this.world_to_viewport(x, 'x');
+		return this.world_to_viewport(x, "x");
 	};
 	this.world_to_viewport_y = function(y) {
-		return this.world_to_viewport(y, 'y');
+		return this.world_to_viewport(y, "y");
 	};
 	this.viewport_to_world = function(n, dimension) {
-		var canvas_side_length = (dimension == 'x') ? this.canvas.width : this.canvas.height;
-		var offset = (dimension == 'x') ? this.x : this.y;
+		var canvas_side_length = (dimension == "x") ? this.canvas.width : this.canvas.height;
+		var offset = (dimension == "x") ? this.x : this.y;
 		return (n + (offset * this.scale) - (canvas_side_length / 2)) / this.scale;
 	};
 	this.viewport_to_world_x = function(x) {
-		return this.viewport_to_world(x, 'x');
+		return this.viewport_to_world(x, "x");
 	};
 	this.viewport_to_world_y = function(y) {
-		return this.viewport_to_world(y, 'y');
+		return this.viewport_to_world(y, "y");
 	};
 	this.update = function(target_x, target_y, frame_delta) {
 		this.x_target = target_x;

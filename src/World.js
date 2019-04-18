@@ -10,7 +10,7 @@ function World(canvas) {
 	this.cells = []; // Array of cells
 	// Canvas Setup
 	this.canvas = canvas;
-	this.ctx = this.canvas.getContext('2d');
+	this.ctx = this.canvas.getContext("2d");
 	this.cam = new Camera(canvas);
 	this._lastTick = (new Date()).getTime(); // for timer
 	this.frameSpacing; // for timer
@@ -28,23 +28,23 @@ function World(canvas) {
 	this.shadows = true;
 	this.music = new MusicPlayer(
 		[ // Music tracks (filename, song name, artist)
-			//['music/Pitx_-_Black_Rainbow.ogg', 'Black Rainbow', 'Pitx'],
-			//['music/rewob_-_Circles.ogg', 'Circles', 'rewob'],
-			['music/soundtrack.mp3', 'Unknown', 'Unknown']
+			//["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
+			//["music/rewob_-_Circles.ogg", "Circles", "rewob"],
+			["music/soundtrack.mp3", "Unknown", "Unknown"]
 		], { // Sound effects (identifier, filename)
-			'blip': ['fx/blip.ogg'],
-			'win': ['fx/win.ogg'],
-			'death': ['fx/death.ogg'],
-			'bounce': ['fx/bounce.ogg'],
+			"blip": ["fx/blip.ogg"],
+			"win": ["fx/win.ogg"],
+			"death": ["fx/death.ogg"],
+			"bounce": ["fx/bounce.ogg"],
 		});
 	// Methods
 	this.init = function() {
 		// Event registration
-		this.canvas.addEventListener('mousedown', this.mouse_down, false);
-		this.canvas.addEventListener('touchstart', this.touch_start, false);
+		this.canvas.addEventListener("mousedown", this.mouse_down, false);
+		this.canvas.addEventListener("touchstart", this.touch_start, false);
 		if (window.addEventListener) {
-			document.addEventListener('DOMMouseScroll', this.mouse_scroll, false);
-			document.addEventListener('mousewheel', this.mouse_scroll, false);
+			document.addEventListener("DOMMouseScroll", this.mouse_scroll, false);
+			document.addEventListener("mousewheel", this.mouse_scroll, false);
 			window.addEventListener("keydown", this.key_down, false);
 			window.addEventListener("blur", function() {
 				world.pause(true);
