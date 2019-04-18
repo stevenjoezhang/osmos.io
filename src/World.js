@@ -24,9 +24,16 @@ function World(canvas) {
 	this.shadows = true;
 	this.music = new MusicPlayer(
 		[
-			//["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
-			//["music/rewob_-_Circles.ogg", "Circles", "rewob"],
-			["music/soundtrack.mp3", "Unknown", "Unknown"]
+			["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
+			["music/rewob_-_Circles.ogg", "Circles", "rewob"],
+			["music/FromSummertoWinter-Ghidorah.mp3", "From Summer to Winter", "Ghidorah"],
+			["music/Biosphere-Antennaria.ogg", "Biosphere", "Antennaria"],
+			["music/JulienNeto-FromCoverToCover.ogg", "FromCoverToCover", "Julien Neto"],
+			["music/VincentAndTristan_OsmosTheme1.ogg", "Osmos Theme 1", "Vincent And Tristan"],
+			["music/VincentAndTristan_OsmosTheme2.ogg", "Osmos Theme 2", "Vincent And Tristan"],
+			["music/HighSkies-ShapeOfThingsToCome.ogg", "Shape Of Things To Come", "High Skies"],
+			["music/Loscil-Rorschach.ogg", "Rorschach", "Loscil"]
+
 		], {
 			"blip": ["fx/blip.ogg"],
 			"win": ["fx/win.ogg"],
@@ -122,12 +129,6 @@ function World(canvas) {
 		else {
 			this.pause();
 			overlay.style.display = "none"; // Hide overlay
-		}
-		// If we're just now starting the game
-		if (!this.has_started) {
-			//this.load_level();
-			this.music.play_song();
-			this.has_started = true;
 		}
 	};
 	this.pause = function(forcepause) {
@@ -261,7 +262,7 @@ function World(canvas) {
 			if (delta > 0) world.cam.scale_target *= 1.2;
 			if (delta < 0) world.cam.scale_target /= 1.2;
 			var fit = Math.min(world.canvas.width, world.canvas.height);
-			var max = fit / 2 / world.get_player().radius;
+			var max = fit / 4 / world.get_player().radius;
 			var min = fit / 4 / world.level_radius;
 			if (world.cam.scale_target > max) world.cam.scale_target = max;
 			if (world.cam.scale_target < min) world.cam.scale_target = min;
