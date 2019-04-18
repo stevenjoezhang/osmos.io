@@ -37,7 +37,7 @@ module.exports = function(songArray, sfxDict) {
 			this.song_audio = new Audio(this.asset_dir + this.songs[this.current_song][0]);
 			this.song_audio.volume = this.default_volume;
 			this.song_audio.addEventListener("ended", function() {
-				world.music.next_song();
+				music.next_song();
 			}, false);
 			// Display metadata
 			var infobox = document.getElementById("songinfo");

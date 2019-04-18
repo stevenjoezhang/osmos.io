@@ -1,9 +1,7 @@
-var MusicPlayer = require("./musicplayer");
 var Cell = require("./cell");
-var Renderer = require("./renderer");
 var config = require("../config.json");
 
-function World(canvas) {
+function World() {
 	// Constants
 	this.level_radius = config.consts.LEVEL_RADIUS; // Define level boundary
 	// Variables and setup
@@ -16,66 +14,6 @@ function World(canvas) {
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
 	this.paused = false;
 	this.has_started = false; // Indicates if the intro menu has been dismissed at least once
-	this.renderer = new Renderer(canvas);
-	this.music = new MusicPlayer(
-		[
-			["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
-			["music/rewob_-_Circles.ogg", "Circles", "rewob"],
-			["music/FromSummertoWinter-Ghidorah.mp3", "From Summer to Winter", "Ghidorah"],
-			["music/Biosphere-Antennaria.ogg", "Biosphere", "Antennaria"],
-			["music/JulienNeto-FromCoverToCover.ogg", "FromCoverToCover", "Julien Neto"],
-			["music/VincentAndTristan_OsmosTheme1.ogg", "Osmos Theme 1", "Vincent And Tristan"],
-			["music/VincentAndTristan_OsmosTheme2.ogg", "Osmos Theme 2", "Vincent And Tristan"],
-			["music/HighSkies-ShapeOfThingsToCome.ogg", "Shape Of Things To Come", "High Skies"],
-			["music/Loscil-Rorschach.ogg", "Rorschach", "Loscil"]
-
-		], {
-			"blip": ["fx/blip.ogg"],
-			"win": ["fx/win.ogg"],
-			"death": ["fx/death.ogg"],
-			"bounce": ["fx/bounce.ogg"],
-		});
-	// Methods
-	this.init = function() {
-		// Event registration
-		window.addEventListener("keydown", this.key_down, false);
-		window.addEventListener("blur", function() {
-			world.pause(true);
-		}, false);
-		document.getElementById("mute").addEventListener("click", function() {
-			world.music.mute();
-		}, false);
-		document.getElementById("newlevel").addEventListener("click", function() {
-			world.load_level();
-		}, false);
-		document.getElementById("pause").addEventListener("click", function() {
-			world.pause();
-		}, false);
-		document.getElementById("help").addEventListener("click", function() {
-			world.toggle_help();
-		}, false);
-		document.getElementById("messages").addEventListener("click", function() {
-			switch (document.getElementById("messages").className) {
-				case "paused":
-					world.pause();
-					break;
-				case "death":
-				case "warning":
-				case "success":
-					world.load_level();
-					break;
-				default:
-					break;
-			}
-		}, false);
-		document.getElementById("playbutton").addEventListener("click", function() {
-			world.toggle_help();
-			// Play a sound in order to allow any sound playback at all on iOS
-			world.music.play_sound("win");
-		}, false);
-
-		this.music.init();
-	};
 	this.show_message = function(id) {
 		this.clear_msgs(true);
 		var div = document.getElementById("messages");
@@ -128,7 +66,7 @@ function World(canvas) {
 			this.paused = false;
 			document.getElementById("pause").children[0].className = "fas fa-2x fa-pause";
 			document.getElementById("pause").children[1].innerText = "Pause [P]";
-			this.music.raise_volume();
+			music.raise_volume();
 		}
 		else {
 			// Pause
@@ -136,7 +74,7 @@ function World(canvas) {
 			this.paused = true;
 			document.getElementById("pause").children[0].className = "fas fa-2x fa-play";
 			document.getElementById("pause").children[1].innerText = "Play [P]";
-			this.music.lower_volume();
+			music.lower_volume();
 		}
 	};
 	this.load_level = function() {
@@ -161,7 +99,7 @@ function World(canvas) {
 			cell.y_veloc = (Math.random() - 0.5) * 0.35;
 			this.cells.push(cell);
 		}
-		this.renderer.cam.center();
+		renderer.cam.center();
 	};
 	this.get_player = function() {
 		if (this.cells.length > 0) return this.cells[0];
@@ -194,7 +132,7 @@ function World(canvas) {
 			newcell.y_veloc = -fy * 9;
 			this.cells.push(newcell);
 			// Blip!
-			this.music.play_sound("blip");
+			music.play_sound("blip");
 		}
 	};
 	this.transfer_mass = function(cell1, cell2) {
@@ -215,7 +153,7 @@ function World(canvas) {
 		bigger.radius += mass_exchange / (2 * Math.PI * bigger.radius);
 		// If the player is the one gaining mass here, zoom the camera
 		if (bigger === player && !this.user_did_zoom) {
-			this.renderer.cam.zoom_to_player();
+			renderer.cam.zoom_to_player();
 		}
 		// Check if we just killed one of the cells
 		if (smaller.radius <= 1) {
@@ -225,7 +163,7 @@ function World(canvas) {
 		}
 	};
 	this.player_did_die = function() {
-		this.music.play_sound("death");
+		music.play_sound("death");
 		this.show_message("death");
 		// Cute animation thing
 		var player = this.get_player();
@@ -241,7 +179,7 @@ function World(canvas) {
 	this.player_did_win = function() {
 		if (!this.won) {
 			this.won = true;
-			this.music.play_sound("win");
+			music.play_sound("win");
 			this.show_message("success");
 		}
 	};
@@ -303,7 +241,7 @@ function World(canvas) {
 					this.cells[i].x_veloc = cell_speed * Math.cos(new_veloc_ang);
 					this.cells[i].y_veloc = cell_speed * Math.sin(new_veloc_ang);
 					// If this cell is the player, make a bounce noise
-					if (i == 0) this.music.play_sound("bounce");
+					if (i == 0) music.play_sound("bounce");
 				}
 			}
 		}
@@ -319,11 +257,9 @@ function World(canvas) {
 			}
 		}
 		// Update music player
-		this.music.update();
-		this.renderer.update();
+		music.update();
+		renderer.update();
 	};
-	// Call init
-	this.init();
 }
 
 function angleForVector(x, y) {

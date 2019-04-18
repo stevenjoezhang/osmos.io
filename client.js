@@ -1,6 +1,7 @@
-/* global $ */
-
 var World = require("./src/world");
+var Renderer = require("./src/renderer");
+var MusicPlayer = require("./src/musicplayer");
+var Control = require("./src/control");
 var config = require("./config.json");
 
 // Engine globals
@@ -11,12 +12,33 @@ window.onload = function() {
 	var canvas = document.getElementById("canvas");
 
 	// Game globals
-	window.world = new World(canvas);
+	window.renderer = new Renderer(canvas);
+	window.music = new MusicPlayer(
+		[
+			["music/Pitx_-_Black_Rainbow.ogg", "Black Rainbow", "Pitx"],
+			["music/rewob_-_Circles.ogg", "Circles", "rewob"],
+			["music/FromSummertoWinter-Ghidorah.mp3", "From Summer to Winter", "Ghidorah"],
+			["music/Biosphere-Antennaria.ogg", "Biosphere", "Antennaria"],
+			["music/JulienNeto-FromCoverToCover.ogg", "FromCoverToCover", "Julien Neto"],
+			["music/VincentAndTristan_OsmosTheme1.ogg", "Osmos Theme 1", "Vincent And Tristan"],
+			["music/VincentAndTristan_OsmosTheme2.ogg", "Osmos Theme 2", "Vincent And Tristan"],
+			["music/HighSkies-ShapeOfThingsToCome.ogg", "Shape Of Things To Come", "High Skies"],
+			["music/Loscil-Rorschach.ogg", "Rorschach", "Loscil"]
+
+		], {
+			"blip": ["fx/blip.ogg"],
+			"win": ["fx/win.ogg"],
+			"death": ["fx/death.ogg"],
+			"bounce": ["fx/bounce.ogg"],
+		});
+	window.control = new Control();
+	window.world = new World();
 	// Initialize the World
 	world.load_level();
 	// If we're just now starting the game
 	if (!world.has_started) {
-		world.music.play_song();
+		music.init();
+		music.play_song();
 		world.has_started = true;
 	}
 

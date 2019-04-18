@@ -29,7 +29,7 @@ function Renderer(canvas) {
 	this.touch_start = function(ev) {
 		ev.preventDefault(); // Prevent dragging
 		var touch = ev.touches[0]; // Just pay attention to first touch
-		world.renderer.click_at_point(touch.pageX, touch.pageY);
+		renderer.click_at_point(touch.pageX, touch.pageY);
 	};
 	this.mouse_down = function(ev) {
 		ev.preventDefault();
@@ -41,7 +41,7 @@ function Renderer(canvas) {
 			ev._x = ev.offsetX;
 			ev._y = ev.offsetY;
 		}
-		world.renderer.click_at_point(ev._x, ev._y);
+		renderer.click_at_point(ev._x, ev._y);
 	};
 	this.mouse_scroll = function(event) {
 		var delta = 0;
@@ -58,39 +58,13 @@ function Renderer(canvas) {
 		delta = delta / Math.abs(delta);
 		if (delta != 0) {
 			world.user_did_zoom = true;
-			if (delta > 0) world.renderer.cam.scale_target *= 1.2;
-			if (delta < 0) world.renderer.cam.scale_target /= 1.2;
-			var fit = Math.min(world.renderer.canvas.width, world.renderer.canvas.height);
+			if (delta > 0) renderer.cam.scale_target *= 1.2;
+			if (delta < 0) renderer.cam.scale_target /= 1.2;
+			var fit = Math.min(renderer.canvas.width, renderer.canvas.height);
 			var max = fit / 4 / world.get_player().radius;
-			var min = fit / 4 / world.renderer.level_radius;
-			if (world.renderer.cam.scale_target > max) world.renderer.cam.scale_target = max;
-			if (world.renderer.cam.scale_target < min) world.renderer.cam.scale_target = min;
-		}
-	};
-	this.key_down = function(e) {
-		var code;
-		if (!e) var e = window.event;
-		if (e.keyCode) code = e.keyCode;
-		else if (e.which) code = e.which;
-		switch (code) {
-			case 72: // H
-				world.toggle_help();
-				break;
-			case 77: // M
-				world.music.mute();
-				break;
-			case 78: // N
-				world.music.next_song();
-				break;
-			case 80: // P
-				world.pause();
-				break;
-			case 82: // R
-				world.load_level();
-				break;
-			case 83: // S
-				world.shadows = !world.shadows;
-				break;
+			var min = fit / 4 / renderer.level_radius;
+			if (renderer.cam.scale_target > max) renderer.cam.scale_target = max;
+			if (renderer.cam.scale_target < min) renderer.cam.scale_target = min;
 		}
 	};
 	this.update = function() {
