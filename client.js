@@ -1,6 +1,6 @@
 /* global $ */
 
-var World = require("./src/World");
+var World = require("./src/world");
 var config = require("./config.json");
 
 // Engine globals
