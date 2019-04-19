@@ -1,12 +1,20 @@
 var io = require("socket.io-client");
 
-var World = require("./src/mode/player");
+var Single = require("./src/mode/single");
 var Renderer = require("./src/renderer");
 var MusicPlayer = require("./src/musicplayer");
 var config = require("./config.json");
 
 // Engine globals
 var mspf = 1000 / config.fps;
+
+// Create requestAnimFrame if it doesn't exist
+window.requestAnimFrame = window.requestAnimationFrame
+|| window.webkitRequestAnimationFrame
+|| window.mozRequestAnimationFrame
+|| window.oRequestAnimationFrame
+|| window.msRequestAnimationFrame
+|| function(callback) { window.setTimeout(callback, mspf) };
 
 // Setup function called when page loads
 window.onload = function() {
@@ -31,35 +39,52 @@ window.onload = function() {
 			"death": ["fx/death.ogg"],
 			"bounce": ["fx/bounce.ogg"],
 		});
-	window.world = new World();
-	// Initialize the World
-	world.load_level();
-	// If we're just now starting the game
-	if (!world.has_started) {
-		music.init();
-		music.play_song();
-		world.has_started = true;
-	}
 
-	// Create requestAnimFrame if it doesn't exist
-	window.requestAnimFrame = window.requestAnimationFrame
-	|| window.webkitRequestAnimationFrame
-	|| window.mozRequestAnimationFrame
-	|| window.oRequestAnimationFrame
-	|| window.msRequestAnimationFrame
-	|| function(callback, element) { window.setTimeout(callback, mspf) };
+	music.init();
+	music.play_song();
+	document.getElementById("single").disabled = false;
+	document.getElementById("single").addEventListener("click", function() {
+		document.getElementById("menu").style.display = "none";
+		window.world = new Single();
+		// Initialize the World
+		world.load_level();
 
-	// Animate!
-	(function animloop() {
-		world.update();
-		requestAnimFrame(animloop, canvas);
-	})();
+		// Animate!
+		(function animloop() {
+			if (world) world.update();
+			requestAnimFrame(animloop);
+		})();
 
-	register();
+		register();
+	});
 }
 
 function register() {
 	// Event registration
+	window.addEventListener("blur", function() {
+		world.pause(true);
+	}, false);
+	document.getElementById("help").addEventListener("click", function() {
+		world.toggle_help();
+	}, false);
+	document.getElementById("mute").addEventListener("click", function() {
+		music.mute();
+	}, false);
+	document.getElementById("quit").addEventListener("click", function() {
+		world = null;
+		document.getElementById("menu").style.display = "block";
+	}, false);
+	document.getElementById("newlevel").addEventListener("click", function() {
+		world.load_level();
+	}, false);
+	document.getElementById("pause").addEventListener("click", function() {
+		world.pause();
+	}, false);
+	document.getElementById("playbutton").addEventListener("click", function() {
+		world.toggle_help();
+		// Play a sound in order to allow any sound playback at all on iOS
+		music.play_sound("win");
+	}, false);
 	window.addEventListener("keydown", function(e) {
 		var code;
 		if (!e) var e = window.event;
@@ -87,21 +112,6 @@ function register() {
 				break;
 		}
 	}, false);
-	window.addEventListener("blur", function() {
-		world.pause(true);
-	}, false);
-	document.getElementById("mute").addEventListener("click", function() {
-		music.mute();
-	}, false);
-	document.getElementById("newlevel").addEventListener("click", function() {
-		world.load_level();
-	}, false);
-	document.getElementById("pause").addEventListener("click", function() {
-		world.pause();
-	}, false);
-	document.getElementById("help").addEventListener("click", function() {
-		world.toggle_help();
-	}, false);
 	document.getElementById("messages").addEventListener("click", function() {
 		switch (document.getElementById("messages").className) {
 			case "paused":
@@ -115,10 +125,5 @@ function register() {
 			default:
 				break;
 		}
-	}, false);
-	document.getElementById("playbutton").addEventListener("click", function() {
-		world.toggle_help();
-		// Play a sound in order to allow any sound playback at all on iOS
-		music.play_sound("win");
 	}, false);
 }

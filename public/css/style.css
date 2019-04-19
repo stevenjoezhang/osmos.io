@@ -26,6 +26,13 @@ canvas {
 	left: 5px;
 	z-index: 1;
 }
+#logo, #controls li {
+	opacity: 0.3;
+	transition: opacity .15s linear;
+}
+#logo:hover {
+	opacity: 0.6;
+}
 #messages {
 	display: none;
 	position: absolute;
@@ -46,20 +53,20 @@ canvas {
 #messages p:nth-child(2) {
 	font-size: 1em;
 }
-ul#controls {
+#controls {
 	position: absolute;
 	top: 5px;
 	right: 5px;
 	list-style-type: none;
 }
-ul#controls li {
+#controls li {
 	display: block;
 	float: right;
 	margin-left: 10px;
 	cursor: pointer;
 	background-repeat: no-repeat;
 }
-ul#controls li label {
+#controls li label {
 	position: absolute;
 	top: 2.5em;
 	right: 0;
@@ -70,10 +77,36 @@ ul#controls li label {
 	display: none;
 	font-weight: normal;
 }
-ul#controls li:hover label {
+#controls li:hover {
+	opacity: 1;
+}
+#controls li:hover label {
 	display: block;
 }
-#helpoverlay {
+#songinfo {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	font-size: 0.8em;
+	padding: 5px;
+	margin: 5px;
+	border-radius: 4px;
+	opacity: 1;
+	transition: opacity, background-color 1s linear;
+}
+#songinfo.idle {
+	background-color: initial;
+}
+#songinfo.featured {
+	background-color: #222;
+}
+#songtitle {
+	font-weight: bold;
+}
+#songtitle:before {
+	content: "\266B\00a0";
+}
+.overlay {
 	background-color: rgba(0, 0, 0, 0.6);
 	position: absolute;
 	height: 100%;
@@ -175,48 +208,80 @@ ul#controls li:hover label {
 	border: 1px solid white;
 	border-radius: 3px;
 }
-#songinfo {
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	font-size: 0.8em;
-	padding: 5px;
-	margin: 5px;
-	border-radius: 4px;
-	opacity: 1;
-	transition: opacity, background-color 1s linear;
+.center {
+	vertical-align: middle;
+	text-align: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
-#songinfo.idle {
-	background-color: initial;
+.scale {
+	animation: scale 5s infinite ease-in-out;
 }
-#songinfo.featured {
-	background-color: #222;
+@keyframes scale {
+	0% {
+		transform: scale(0.8);
+	}
+	50% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0.8);
+	}
 }
-#songtitle {
-	font-weight: bold;
+input, button {
+	font-family: FortuneCity, sans-serif;
+	font-size: 1.5rem;
+	outline: none;
+	border: 0;
+	padding: .5rem 1rem;
+	line-height: 2.5rem;
 }
-#songtitle:before {
-	content: "\266B\00a0";
+button {
+	text-align: center;
+	cursor: pointer;
 }
-footer {
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
+button:active {
+	transform: translateY(4px);
 }
-footer a {
-	text-decoration: none;
-	color: white;
-	font-weight: bold;
-	font-size: 0.8em;
-	text-transform: uppercase;
+button:disabled {
+	cursor: not-allowed;
 }
-#logo, footer a, #controls li {
-	opacity: 0.3;
-	transition: opacity .15s linear;
+#name {
+	background: #ededd1;
+	border-bottom: 6px solid #a1a18d;
 }
-#logo:hover, footer a:hover {
-	opacity: 0.6;
+.yellow {
+	background: #eaec4b;
+	border-bottom: 6px solid #a1a130;
+	color: #888a34;
 }
-#controls li:hover {
-	opacity: 1;
+.yellow:hover {
+	background: #fafc5b;
+}
+.yellow:active {
+	border-bottom: 2px solid #a1a130;
+}
+.orange {
+	background: #FF972F;
+	border-bottom: 6px solid #AE4E0D;
+	color: #422100;
+}
+.orange:hover {
+	background: #FFB76F;
+}
+.orange:active {
+	border-bottom: 2px solid #AE4E0D;
+}
+.green {
+	background: #7fed4c;
+	border-bottom: 6px solid #56a130;
+	color: #4f8a34;
+}
+.green:hover {
+	background: #8efc5b;
+}
+.green:active {
+	border-bottom: 2px solid #56a130;
 }

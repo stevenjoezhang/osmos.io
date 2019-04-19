@@ -48,7 +48,7 @@ module.exports = function(songArray, sfxDict) {
 				artistbox.innerText = this.songs[this.current_song][2];
 				infobox.className = "featured";
 				setTimeout(function() {
-					document.getElementById("songinfo").className = "idle";
+					infobox.className = "idle";
 				}, 2000);
 			}
 		}

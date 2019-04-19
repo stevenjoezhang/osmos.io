@@ -12,11 +12,12 @@
 </head>
 <body>
 <script src="js/bundle.js"></script>
-<img id="logo" src="img/logo.svg" alt="Osmoss" style="height: 2em;"/>
 <canvas id="canvas">Sorry, no canvas for you!</canvas>
+<img id="logo" src="img/logo.svg" alt="Osmoss" style="height: 2em;"/>
 <ul id="controls">
 	<li id="help"><i class="fas fa-2x fa-question-circle"></i><label>Help [H]</label></li>
 	<li id="mute"><i class="fas fa-2x fa-volume-up"></i><label>Mute sounds [M]</label></li>
+	<li id="quit"><i class="fas fa-2x fa-home"></i><label>Quit game</label></li>
 	<li id="newlevel"><i class="fas fa-2x fa-dice-six"></i><label>New random level [R]</label></li>
 	<li id="pause"><i class="fas fa-2x fa-pause"></i><label>Pause [P]</label></li>
 </ul>
@@ -26,7 +27,7 @@
 </div>
 <div id="messages" class="">
 </div>
-<div id="helpoverlay" style="display: none;">
+<div class="overlay" style="display: none;">
 	<div id="helpwindow">
 		<div id="helpheader">
 			About
@@ -59,6 +60,23 @@
 		</div>
 	</div>
 </div>
-<!--<footer><a href="http://stepheneisenhauer.com">An experiment by Stephen Eisenhauer</a></footer>-->
+<div id="menu" class="overlay">
+	<div class="center">
+		<img class="scale" src="img/logo.svg" alt="Osmoss" style="height: 4em;"/>
+		<h1>Enter your name</h1>
+		<input id="name" autocomplete="off" placeholder="An awesome name!"/>
+		<button class="multi yellow" disabled="disabled">Play!</button>
+		<br/>
+		<br/>
+		<button id="single" class="orange" disabled="disabled">Single Player</button>
+		<button class="spectate green" disabled="disabled">Spectate</button>
+		<div>
+			<span id="error">Please wait... Maybe something's wrong!</span>
+			<noscript>
+				<span>Your browser does not support JavaScript!</span>
+			</noscript>
+		</div>
+	</div>
+</div>
 </body>
 </html>
