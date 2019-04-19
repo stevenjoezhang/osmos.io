@@ -1,6 +1,9 @@
 var io = require("socket.io-client");
 
 var Single = require("./src/mode/single");
+var Multi = require("./src/mode/player");
+var God = require("./src/mode/god");
+
 var Renderer = require("./src/renderer");
 var MusicPlayer = require("./src/musicplayer");
 var config = require("./config.json");
@@ -56,6 +59,28 @@ window.onload = function() {
 		})();
 
 		register();
+	});
+	fetch("/port").then(response => {
+		return response.text();
+	}).then(data => {
+		var port = data;
+		var socket = io("//" + window.location.hostname + ":" + port, {
+			forceNew: true,
+			upgrade: false,
+			transports: ["websocket"]
+		});
+		socket.on("connect", function() {
+			socket.emit("pings");
+		});
+		socket.on("pongs", function() {
+			socket.disconnect();
+			document.getElementById("error").innerText = "All done, have fun!";
+			document.getElementById("multi").disabled = false;
+			document.getElementById("spectate").disabled = false;
+		});
+		socket.on("connect_error", function() {
+			document.getElementById("error").innerText = "Cannot connect with server. This probably is due to misconfigured proxy server. (Try using a different browser)";
+		});
 	});
 }
 
@@ -118,12 +143,12 @@ function register() {
 	document.getElementById("messages").addEventListener("click", function() {
 		switch (document.getElementById("messages").className) {
 			case "paused":
-				world.pause();
+				controls.pause();
 				break;
 			case "death":
 			case "warning":
 			case "success":
-				world.load_level();
+				controls.newlevel();
 				break;
 			default:
 				break;
