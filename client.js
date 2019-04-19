@@ -59,26 +59,29 @@ window.onload = function() {
 	});
 }
 
+window.controls = {
+	help: function() {
+		if (world) world.toggle_help();
+	},
+	mute: function() {
+		if (music) music.mute();
+	},
+	quit: function() {
+		if (world) world = null;
+		document.getElementById('menu').style.display = 'block';
+	},
+	newlevel: function() {
+		if (world) world.load_level();
+	},
+	pause: function() {
+		if (world) world.pause();
+	}
+}
+
 function register() {
 	// Event registration
 	window.addEventListener("blur", function() {
 		world.pause(true);
-	}, false);
-	document.getElementById("help").addEventListener("click", function() {
-		world.toggle_help();
-	}, false);
-	document.getElementById("mute").addEventListener("click", function() {
-		music.mute();
-	}, false);
-	document.getElementById("quit").addEventListener("click", function() {
-		world = null;
-		document.getElementById("menu").style.display = "block";
-	}, false);
-	document.getElementById("newlevel").addEventListener("click", function() {
-		world.load_level();
-	}, false);
-	document.getElementById("pause").addEventListener("click", function() {
-		world.pause();
 	}, false);
 	document.getElementById("playbutton").addEventListener("click", function() {
 		world.toggle_help();
@@ -92,20 +95,20 @@ function register() {
 		else if (e.which) code = e.which;
 		switch (code) {
 			case 72: // H
-				world.toggle_help();
+				controls.help();
 				break;
 			case 77: // M
-				music.mute();
+				controls.mute();
 				break;
 			case 78: // N
 				music.next_song();
 				break;
 			case 32: // Space
 			case 80: // P
-				world.pause();
+				controls.pause();
 				break;
 			case 82: // R
-				world.load_level();
+				controls.newlevel();
 				break;
 			case 83: // S
 				world.shadows = !world.shadows;
