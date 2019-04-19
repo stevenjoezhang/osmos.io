@@ -1,3 +1,5 @@
+var io = require("socket.io-client");
+
 var Cell = require("../cell");
 var config = require("../../config.json");
 
@@ -12,7 +14,6 @@ function World() {
 	this.frame_delta;
 	this.won = false; // Indicates if the player has won (and is now just basking in his own glory)
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
-	this.paused = false;
 	this.show_message = function(id) {
 		this.clear_msgs(true);
 		var div = document.getElementById("messages");
@@ -56,24 +57,6 @@ function World() {
 		else {
 			this.pause();
 			overlay.style.display = "none"; // Hide overlay
-		}
-	};
-	this.pause = function(forcepause) {
-		if (this.paused && !forcepause) {
-			// Unpause
-			this.clear_msgs();
-			this.paused = false;
-			document.getElementById("pause").children[0].className = "fas fa-2x fa-pause";
-			document.getElementById("pause").children[1].innerText = "Pause [P]";
-			music.raise_volume();
-		}
-		else {
-			// Pause
-			this.show_message("paused");
-			this.paused = true;
-			document.getElementById("pause").children[0].className = "fas fa-2x fa-play";
-			document.getElementById("pause").children[1].innerText = "Play [P]";
-			music.lower_volume();
 		}
 	};
 	this.load_level = function() {

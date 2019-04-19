@@ -24,10 +24,11 @@ app.get("/port", (req, res) => {
 	var ans = process.env.PORT ? 443 : port;
 	res.end(ans.toString());
 });
-/*
+
 var Game = require("./src/game-server");
 var game = new Game();
 io.set("transports", ["websocket"]);
+
 io.on("connection", (socket) => {
 	socket.on("hello", (data, fn) => {
 		//TODO: error checking.
@@ -44,7 +45,7 @@ io.on("connection", (socket) => {
 		socket.disconnect();
 	});
 });
-
+/*
 setInterval(() => {
 	game.tickFrame();
 }, 1000 / 60);
