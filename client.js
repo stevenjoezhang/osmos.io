@@ -10,6 +10,7 @@ var config = require("./config.json");
 
 // Engine globals
 var mspf = 1000 / config.fps;
+window.world = null;
 
 // Create requestAnimFrame if it doesn't exist
 window.requestAnimFrame = window.requestAnimationFrame
@@ -45,21 +46,9 @@ window.onload = function() {
 
 	music.init();
 	music.play_song();
-	document.getElementById("single").disabled = false;
-	document.getElementById("single").addEventListener("click", function() {
-		document.getElementById("menu").style.display = "none";
-		window.world = new Single();
-		// Initialize the World
-		world.load_level();
 
-		// Animate!
-		(function animloop() {
-			if (world) world.update();
-			requestAnimFrame(animloop);
-		})();
+	register();
 
-		register();
-	});
 	fetch("/port").then(response => {
 		return response.text();
 	}).then(data => {
@@ -81,6 +70,33 @@ window.onload = function() {
 		socket.on("connect_error", function() {
 			document.getElementById("error").innerText = "Cannot connect with server. This probably is due to misconfigured proxy server. (Try using a different browser)";
 		});
+		document.getElementById("multi").addEventListener("click", function() {
+			return alert("多人对战还未完成，请点击`Single Player`！");
+			document.getElementById("menu").style.display = "none";
+			world = new Multi();
+			// Initialize the World
+			world.load_level();
+
+			// Animate!
+			(function animloop() {
+				if (world) world.update();
+				requestAnimFrame(animloop);
+			})();
+		});
+	});
+
+	document.getElementById("single").disabled = false;
+	document.getElementById("single").addEventListener("click", function() {
+		document.getElementById("menu").style.display = "none";
+		world = new Single();
+		// Initialize the World
+		world.load_level();
+
+		// Animate!
+		(function animloop() {
+			if (world) world.update();
+			requestAnimFrame(animloop);
+		})();
 	});
 }
 
@@ -98,18 +114,18 @@ window.controls = {
 	newlevel: function() {
 		if (world) world.load_level();
 	},
-	pause: function() {
-		if (world) world.pause();
+	pause: function(flag) {
+		if (world) world.pause(flag);
 	}
 }
 
 function register() {
 	// Event registration
 	window.addEventListener("blur", function() {
-		world.pause(true);
+		controls.pause(true);
 	}, false);
 	document.getElementById("playbutton").addEventListener("click", function() {
-		world.toggle_help();
+		controls.help();
 		// Play a sound in order to allow any sound playback at all on iOS
 		music.play_sound("win");
 	}, false);
