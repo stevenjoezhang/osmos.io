@@ -1,13 +1,10 @@
-# Osmoss
+# Osmo
 
 ## About
 
-Osmoss is a game the web browser, made entirely using HTML5, and inspired 
-heavily by the gameplay of Osmos.
+Osmo is a game the web browser, made entirely using HTML5, and inspired heavily by the gameplay of Osmos.
 
-The rules are simple; click to propel yourself around, and try to absorb 
-smaller cells until you become the biggest. Watch out for larger cells, or 
-they will absorb you!
+The rules are simple; click to propel yourself around, and try to absorb smaller cells until you become the biggest. Watch out for larger cells, or they will absorb you!
 
 ## Screenshots
 
@@ -17,9 +14,9 @@ they will absorb you!
 
 ```bash
 # Clone this repository
-git clone https://github.com/stevenjoezhang/osmoss.git
+git clone https://github.com/stevenjoezhang/osmo.git
 # Go into the repository
-cd osmoss
+cd osmo
 # Install dependencies
 npm install
 ```
@@ -44,7 +41,7 @@ npm run build
 
 ## License
 
-Osmoss is forked from [Browsmos](https://github.com/BHSPitMonkey/Browsmos).
+Osmo is forked from [Browsmos](https://github.com/BHSPitMonkey/Browsmos).
 
 > ### License
 > Any JavaScript sources within Browsmos are hereby licensed under the Simplified BSD License. You are free to modify and redistribute Browsmos, but, if you do, please:
