@@ -1,5 +1,5 @@
 {
-	"name": "osmoss",
+	"name": "osmo",
 	"version": "0.0.1",
 	"description": "A multiplayer game (cloned from Osmos)",
 	"main": "server.js",
@@ -9,18 +9,18 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/stevenjoezhang/osmoss.git"
+		"url": "git+https://github.com/stevenjoezhang/osmo.git"
 	},
 	"keywords": [
-		"Osmoss",
+		"osmo",
 		"Game"
 	],
 	"author": "Stephen Eisenhauer",
 	"license": "BSD",
 	"bugs": {
-		"url": "https://github.com/stevenjoezhang/osmoss/issues"
+		"url": "https://github.com/stevenjoezhang/osmo/issues"
 	},
-	"homepage": "https://github.com/stevenjoezhang/osmoss",
+	"homepage": "https://github.com/stevenjoezhang/osmo",
 	"dependencies": {
 		"browserify": "^16.2.3",
 		"express": "^4.16.4",
