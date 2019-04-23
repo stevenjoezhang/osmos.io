@@ -16,30 +16,37 @@ function World() {
 	this.show_message = function(id) {
 		this.clear_msgs(true);
 		var div = document.getElementById("messages");
+		var img = document.getElementById("info");
 		div.className = id;
 		div.style.display = "block";
-		var content;
+		img.style.display = "block";
+		var content, src = "";
 		switch (id) {
 			case "paused":
 				content = "<p>Paused</p><p>Click here to resume playing.</p>";
 				break;
 			case "death":
 				content = "<p>You were consumed!</p><p>Click here to restart the level.</p>";
+				src = "img/death.svg";
 				break;
 			case "warning":
 				content = "<p>Uhhhhh.</p><p>You may just wanna click here to restart the level.</p>";
+				src = "img/danger.svg";
 				break;
 			case "success":
 				content = "<p>Good!</p><p>Click here to start another random level.</p>";
+				src = "img/kill.svg";
 				break;
 			default:
 				content = "";
 				break;
 		}
 		div.innerHTML = content;
+		img.src = src;
 	};
 	this.clear_msgs = function(forceclear) {
 		document.getElementById("messages").style.display = "none";
+		document.getElementById("info").style.display = "none";
 		// Re-show important messages that are still relevant
 		if (!forceclear) {
 			if (this.won) this.show_message("success");

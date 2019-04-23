@@ -33,26 +33,6 @@ canvas {
 #logo:hover {
 	opacity: 0.6;
 }
-#messages {
-	display: none;
-	position: absolute;
-	bottom: 15%;
-	left: 50%;
-	width: 400px;
-	margin-left: -200px;
-	background: rgba(0, 0, 0, 0.5);
-	border-radius: 10px;
-	padding: 10px 0;
-}
-#messages p {
-	text-align: center;
-}
-#messages p:nth-child(1) {
-	font-size: 1.8em;
-}
-#messages p:nth-child(2) {
-	font-size: 1em;
-}
 #controls {
 	position: absolute;
 	top: 5px;
@@ -105,6 +85,34 @@ canvas {
 }
 #songtitle:before {
 	content: "\266B\00a0";
+}
+#messages {
+	display: none;
+	position: absolute;
+	bottom: 15%;
+	left: 50%;
+	width: 400px;
+	margin-left: -200px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	padding: 10px 0;
+}
+#messages p {
+	text-align: center;
+}
+#messages p:nth-child(1) {
+	font-size: 1.8em;
+}
+#messages p:nth-child(2) {
+	font-size: 1em;
+}
+#info {
+	display: none;
+	position: fixed;
+	width: 20%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 .overlay {
 	background-color: rgba(0, 0, 0, 0.6);
