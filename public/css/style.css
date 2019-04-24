@@ -25,13 +25,8 @@ canvas {
 	top: 5px;
 	left: 5px;
 	z-index: 1;
-}
-#logo, #controls li {
+	pointer-events: none;
 	opacity: 0.3;
-	transition: opacity .15s linear;
-}
-#logo:hover {
-	opacity: 0.6;
 }
 #controls {
 	position: absolute;
@@ -45,6 +40,8 @@ canvas {
 	margin-left: 10px;
 	cursor: pointer;
 	background-repeat: no-repeat;
+	opacity: 0.3;
+	transition: opacity .15s linear;
 }
 #controls li label {
 	position: absolute;
@@ -71,8 +68,8 @@ canvas {
 	padding: 5px;
 	margin: 5px;
 	border-radius: 4px;
-	opacity: 1;
-	transition: opacity, background-color 1s linear;
+	transition: background-color 1s linear;
+	pointer-events: none;
 }
 #songinfo.idle {
 	background-color: initial;
@@ -109,10 +106,11 @@ canvas {
 #info {
 	display: none;
 	position: fixed;
-	width: 20%;
+	height: 30%;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	pointer-events: none;
 }
 .overlay {
 	background-color: rgba(0, 0, 0, 0.6);
