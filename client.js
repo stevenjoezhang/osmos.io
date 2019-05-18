@@ -109,7 +109,7 @@ window.controls = {
 	},
 	quit: function() {
 		if (world) world = null;
-		document.getElementById('menu').style.display = 'block';
+		document.getElementById("menu").style.display = "block";
 	},
 	newlevel: function() {
 		if (world) world.load_level();
