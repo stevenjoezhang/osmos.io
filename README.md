@@ -21,7 +21,7 @@ cd osmo
 npm install
 ```
 
-## Running
+## Usage
 
 After cloning this repository, run the follow commands to install dependencies and set up server. Enjoy!
 
