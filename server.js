@@ -19,11 +19,6 @@ server.listen(port, () => {
 });
 //Routing
 app.use(express.static(path.join(__dirname, "public")));
-app.get("/port", (req, res) => {
-	//Deploy to Heroku
-	var ans = process.env.PORT ? 443 : port;
-	res.end(ans.toString());
-});
 
 var Game = require("./src/game-server");
 var game = new Game();

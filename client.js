@@ -49,11 +49,9 @@ window.onload = function() {
 
 	register();
 
-	fetch("/port").then(response => {
-		return response.text();
-	}).then(data => {
-		var port = data;
-		var socket = io("//" + window.location.hostname + ":" + port, {
+	(function() {
+		var port = location.port;
+		var socket = io(`//${location.hostname}${port ? ":" + port : ""}`, {
 			forceNew: true,
 			upgrade: false,
 			transports: ["websocket"]
@@ -83,7 +81,7 @@ window.onload = function() {
 				requestAnimFrame(animloop);
 			})();
 		});
-	});
+	})();
 
 	document.getElementById("single").disabled = false;
 	document.getElementById("single").addEventListener("click", function() {
