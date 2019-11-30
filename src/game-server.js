@@ -7,7 +7,7 @@ function World() {
 	// Variables and setup
 	this.cells = []; // Array of cells
 	// For timer
-	this.lastTick = new Date().getTime();
+	this.lastTick = Date.now();
 	this.frame_spacing;
 	this.frame_delta;
 	this.won = false; // Indicates if the player has won (and is now just basking in his own glory)
@@ -115,7 +115,7 @@ function World() {
 	this.update = function() {
 		var player = this.get_player();
 		// Advance timer
-		var currentTick = new Date().getTime();
+		var currentTick = Date.now();
 		this.frame_spacing = currentTick - this.lastTick;
 		this.frame_delta = this.frame_spacing * config.fps / 1000;
 		this.lastTick = currentTick;
