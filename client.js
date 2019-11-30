@@ -50,8 +50,7 @@ window.onload = function() {
 	register();
 
 	(function() {
-		var port = location.port;
-		var socket = io(`//${location.hostname}${port ? ":" + port : ""}`, {
+		var socket = io(`//${location.host}`, {
 			forceNew: true,
 			upgrade: false,
 			transports: ["websocket"]
