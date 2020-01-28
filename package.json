@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"build": "browserify client.js | uglifyjs > public/js/bundle.js"
+		"build": "browserify client.js | terser > public/js/bundle.js"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +26,6 @@
 		"express": "^4.17.1",
 		"socket.io": "^2.3.0",
 		"socket.io-client": "^2.3.0",
-		"uglify-es": "^3.3.9"
+		"terser": "^4.6.3"
 	}
 }
