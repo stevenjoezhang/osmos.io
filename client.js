@@ -127,28 +127,24 @@ function register() {
 		music.play_sound("win");
 	}, false);
 	window.addEventListener("keydown", function(e) {
-		var code;
-		if (!e) var e = window.event;
-		if (e.keyCode) code = e.keyCode;
-		else if (e.which) code = e.which;
-		switch (code) {
-			case 72: // H
+		switch (e.key) {
+			case "h": // H
 				controls.help();
 				break;
-			case 77: // M
+			case "m": // M
 				controls.mute();
 				break;
-			case 78: // N
+			case "n": // N
 				music.next_song();
 				break;
-			case 32: // Space
-			case 80: // P
+			case " ": // Space
+			case "p": // P
 				controls.pause();
 				break;
-			case 82: // R
+			case "r": // R
 				controls.newlevel();
 				break;
-			case 83: // S
+			case "s": // S
 				world.shadows = !world.shadows;
 				break;
 		}
