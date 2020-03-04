@@ -36,7 +36,7 @@ module.exports = function(songArray, sfxDict) {
 			}
 			this.song_audio = new Audio(this.asset_dir + this.songs[this.current_song][0]);
 			this.song_audio.volume = this.default_volume;
-			this.song_audio.addEventListener("ended", function() {
+			this.song_audio.addEventListener("ended", () => {
 				music.next_song();
 			}, false);
 			// Display metadata
@@ -47,7 +47,7 @@ module.exports = function(songArray, sfxDict) {
 				titlebox.innerText = this.songs[this.current_song][1];
 				artistbox.innerText = this.songs[this.current_song][2];
 				infobox.className = "featured";
-				setTimeout(function() {
+				setTimeout(() => {
 					infobox.className = "idle";
 				}, 2000);
 			}

@@ -26,12 +26,12 @@ function Renderer(canvas) {
 			world.push_player_from(x, y);
 		}
 	};
-	this.touch_start = function(ev) {
+	this.touch_start = ev => {
 		ev.preventDefault(); // Prevent dragging
 		var touch = ev.touches[0]; // Just pay attention to first touch
 		renderer.click_at_point(touch.pageX, touch.pageY);
 	};
-	this.mouse_down = function(ev) {
+	this.mouse_down = ev => {
 		ev.preventDefault();
 		if (ev.layerX || ev.layerX == 0) { // Firefox
 			ev._x = ev.layerX;
@@ -43,7 +43,7 @@ function Renderer(canvas) {
 		}
 		renderer.click_at_point(ev._x, ev._y);
 	};
-	this.mouse_scroll = function(event) {
+	this.mouse_scroll = event => {
 		var delta = 0;
 		if (!event) event = window.event;
 		// normalize the delta

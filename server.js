@@ -4,7 +4,7 @@ const app = express();
 const path = require("path");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const exec = require("child_process").exec;
+const { exec } = require("child_process");
 
 exec("npm run build");
 var config = require("./config.json");
@@ -25,7 +25,7 @@ var Game = require("./src/game-server");
 var game = new Game();
 io.set("transports", ["websocket"]);
 
-io.on("connection", (socket) => {
+io.on("connection", socket => {
 	socket.on("hello", (data, fn) => {
 		//TODO: error checking.
 		if (data.god && game.addGod(socket)) {

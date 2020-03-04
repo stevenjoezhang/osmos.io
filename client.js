@@ -18,10 +18,10 @@ window.requestAnimFrame = window.requestAnimationFrame
 || window.mozRequestAnimationFrame
 || window.oRequestAnimationFrame
 || window.msRequestAnimationFrame
-|| function(callback) { window.setTimeout(callback, mspf) };
+|| (callback => { window.setTimeout(callback, mspf) });
 
 // Setup function called when page loads
-window.onload = function() {
+window.onload = () => {
 	var canvas = document.getElementById("canvas");
 
 	// Game globals
@@ -49,25 +49,25 @@ window.onload = function() {
 
 	register();
 
-	(function() {
+	(() => {
 		var socket = io(`//${location.host}`, {
 			forceNew: true,
 			upgrade: false,
 			transports: ["websocket"]
 		});
-		socket.on("connect", function() {
+		socket.on("connect", () => {
 			socket.emit("pings");
 		});
-		socket.on("pongs", function() {
+		socket.on("pongs", () => {
 			socket.disconnect();
 			document.getElementById("error").innerText = "All done, have fun!";
 			document.getElementById("multi").disabled = false;
 			document.getElementById("spectate").disabled = false;
 		});
-		socket.on("connect_error", function() {
+		socket.on("connect_error", () => {
 			document.getElementById("error").innerText = "Cannot connect with server. This probably is due to misconfigured proxy server. (Try using a different browser)";
 		});
-		document.getElementById("multi").addEventListener("click", function() {
+		document.getElementById("multi").addEventListener("click", () => {
 			return alert("多人对战还未完成，请点击`Single Player`！");
 			document.getElementById("menu").style.display = "none";
 			world = new Multi();
@@ -83,7 +83,7 @@ window.onload = function() {
 	})();
 
 	document.getElementById("single").disabled = false;
-	document.getElementById("single").addEventListener("click", function() {
+	document.getElementById("single").addEventListener("click", () => {
 		document.getElementById("menu").style.display = "none";
 		world = new Single();
 		// Initialize the World
@@ -118,15 +118,15 @@ window.controls = {
 
 function register() {
 	// Event registration
-	window.addEventListener("blur", function() {
+	window.addEventListener("blur", () => {
 		controls.pause(true);
 	}, false);
-	document.getElementById("playbutton").addEventListener("click", function() {
+	document.getElementById("playbutton").addEventListener("click", () => {
 		controls.help();
 		// Play a sound in order to allow any sound playback at all on iOS
 		music.play_sound("win");
 	}, false);
-	window.addEventListener("keydown", function(e) {
+	window.addEventListener("keydown", e => {
 		switch (e.key) {
 			case "h": // H
 				controls.help();
@@ -149,7 +149,7 @@ function register() {
 				break;
 		}
 	}, false);
-	document.getElementById("messages").addEventListener("click", function() {
+	document.getElementById("messages").addEventListener("click", () => {
 		switch (document.getElementById("messages").className) {
 			case "paused":
 				controls.pause();
