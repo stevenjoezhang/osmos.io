@@ -86,3 +86,5 @@ package-lock.json
 dist/
 
 .DS_Store
+
+public/js/bundle.js

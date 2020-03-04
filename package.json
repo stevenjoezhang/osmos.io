@@ -4,7 +4,6 @@
 	"description": "A multiplayer game (cloned from Osmos)",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js",
 		"build": "browserify client.js | terser > public/js/bundle.js"
 	},
 	"repository": {
@@ -22,10 +21,12 @@
 	},
 	"homepage": "https://github.com/stevenjoezhang/osmo",
 	"dependencies": {
-		"browserify": "^16.5.0",
 		"express": "^4.17.1",
 		"socket.io": "^2.3.0",
-		"socket.io-client": "^2.3.0",
+		"socket.io-client": "^2.3.0"
+	},
+	"devDependencies": {
+		"browserify": "^16.5.0",
 		"terser": "^4.6.3"
 	}
 }
