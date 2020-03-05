@@ -6,8 +6,8 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const { exec } = require("child_process");
 
-exec("npm run build");
 var config = require("./config.json");
+config.dev ? exec("npm run build-dev") : exec("npm run build");
 
 if (!(config.port >= 0 && config.port < 65536 && config.port % 1 === 0)) {
 	console.error("[ERROR] `port` argument must be an integer >= 0 and < 65536. Default value will be used.");

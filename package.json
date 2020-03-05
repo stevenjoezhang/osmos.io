@@ -4,7 +4,8 @@
 	"description": "A multiplayer game (cloned from Osmos)",
 	"main": "server.js",
 	"scripts": {
-		"build": "browserify client.js | terser > public/js/bundle.js"
+		"build": "browserify client.js | terser > public/js/bundle.js",
+		"build-dev": "watchify client.js -o public/js/bundle.js"
 	},
 	"repository": {
 		"type": "git",
@@ -27,6 +28,7 @@
 	},
 	"devDependencies": {
 		"browserify": "16.5.0",
-		"terser": "4.6.6"
+		"terser": "4.6.6",
+		"watchify": "^3.11.1"
 	}
 }
