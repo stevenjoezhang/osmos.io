@@ -20,6 +20,7 @@ server.listen(port, () => {
 });
 //Routing
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/font", express.static(path.join(__dirname, "node_modules/@fortawesome/fontawesome-free")));
 
 var Game = require("./src/game-server");
 var game = new Game();
