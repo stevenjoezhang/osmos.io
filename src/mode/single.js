@@ -27,15 +27,15 @@ function World() {
 				break;
 			case "death":
 				content = "<p>You were consumed!</p><p>Click here to restart the level.</p>";
-				src = "img/death.svg";
+				src = "/img/death.svg";
 				break;
 			case "warning":
 				content = "<p>Uhhhhh.</p><p>You may just wanna click here to restart the level.</p>";
-				src = "img/danger.svg";
+				src = "/img/danger.svg";
 				break;
 			case "success":
 				content = "<p>Good!</p><p>Click here to start another random level.</p>";
-				src = "img/kill.svg";
+				src = "/img/kill.svg";
 				break;
 			default:
 				content = "";
