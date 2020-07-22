@@ -42,7 +42,7 @@ function World() {
 			var dx = player.x_pos - x;
 			var dy = player.y_pos - y;
 			// Normalize dx/dy
-			var mag = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+			var mag = Math.hypot(dx, dy);
 			dx /= mag;
 			dy /= mag;
 			// Reduce force in proportion to area
@@ -144,7 +144,7 @@ function World() {
 			var cell_x = this.cells[i].x_pos,
 				cell_y = this.cells[i].y_pos,
 				cellrad = this.cells[i].radius,
-				dist_from_origin = Math.sqrt(Math.pow(cell_x, 2) + Math.pow(cell_y, 2));
+				dist_from_origin = Math.hypot(cell_x, cell_y);
 			if (dist_from_origin + cellrad > this.level_radius) {
 				// Do some homework
 				var cell_xvel = this.cells[i].x_veloc,
@@ -154,10 +154,10 @@ function World() {
 				this.cells[i].y_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
 				cell_x = this.cells[i].x_pos;
 				cell_y = this.cells[i].y_pos;
-				dist_from_origin = Math.sqrt(Math.pow(cell_x, 2) + Math.pow(cell_y, 2));
+				dist_from_origin = Math.hypot(cell_x, cell_y);
 				// Bounce!
 				// Find speed
-				var cell_speed = Math.sqrt(Math.pow(cell_xvel, 2) + Math.pow(cell_yvel, 2));
+				var cell_speed = Math.hypot(cell_xvel, cell_yvel);
 				// Find angles of "center to cell" and cell's velocity
 				var angle_from_origin = angleForVector(cell_x, cell_y);
 				var veloc_ang = angleForVector(cell_xvel, cell_yvel);

@@ -28,7 +28,7 @@ function Cell(xpos, ypos, radius) {
 	this.distance_from = function(other) {
 		var dx = this.x_pos - other.x_pos;
 		var dy = this.y_pos - other.y_pos;
-		return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		return Math.hypot(dx, dy);
 	}
 	this.collides_with = function(other) {
 		return this.distance_from(other) < this.radius + other.radius;
