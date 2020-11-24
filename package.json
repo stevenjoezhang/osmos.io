@@ -1,35 +1,36 @@
 {
-	"name": "osmo",
-	"version": "0.0.1",
-	"description": "A multiplayer game (cloned from Osmos)",
-	"main": "server.js",
-	"scripts": {
-		"build": "browserify client.js | terser > public/js/bundle.js",
-		"build-dev": "watchify client.js -o public/js/bundle.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/stevenjoezhang/osmo.git"
-	},
-	"keywords": [
-		"osmo",
-		"Game"
-	],
-	"author": "Stephen Eisenhauer",
-	"license": "BSD",
-	"bugs": {
-		"url": "https://github.com/stevenjoezhang/osmo/issues"
-	},
-	"homepage": "https://github.com/stevenjoezhang/osmo",
-	"dependencies": {
-		"@fortawesome/fontawesome-free": "^5.13.0",
-		"express": "^4.17.1",
-		"socket.io": "^2.3.0",
-		"socket.io-client": "^2.3.0"
-	},
-	"devDependencies": {
-		"browserify": "16.5.1",
-		"terser": "5.3.0",
-		"watchify": "3.11.1"
-	}
+  "name": "osmo",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A multiplayer game (cloned from Osmos)",
+  "main": "server.js",
+  "scripts": {
+    "build": "browserify client.js | terser > public/js/bundle.js",
+    "build-dev": "watchify client.js -o public/js/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevenjoezhang/osmo.git"
+  },
+  "keywords": [
+    "osmo",
+    "Game"
+  ],
+  "author": "Stephen Eisenhauer",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/stevenjoezhang/osmo/issues"
+  },
+  "homepage": "https://github.com/stevenjoezhang/osmo",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "mimi-server": "^0.0.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "browserify": "16.5.1",
+    "terser": "5.3.0",
+    "watchify": "3.11.1"
+  }
 }

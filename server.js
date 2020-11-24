@@ -1,29 +1,26 @@
-//https://github.com/socketio/socket.io/blob/master/examples/chat/index.js
+// https://github.com/socketio/socket.io/blob/master/examples/chat/index.js
+const MiServer = require("mimi-server");
 const express = require("express");
-const app = express();
 const path = require("path");
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
 const { exec } = require("child_process");
 
-var config = require("./config.json");
+const config = require("./config.json");
 config.dev ? exec("npm run build-dev") : exec("npm run build");
 
-if (!(config.port >= 0 && config.port < 65536 && config.port % 1 === 0)) {
-	console.error("[ERROR] `port` argument must be an integer >= 0 and < 65536. Default value will be used.");
-	config.port = 8080;
-}
-var port = process.env.PORT || config.port;
+const port = process.env.PORT || config.port;
 
-server.listen(port, () => {
-	console.log("Server listening at port %d", port);
+const { app, server } = new MiServer({
+	port,
+	static: path.join(__dirname, "public")
 });
-//Routing
-app.use(express.static(path.join(__dirname, "public")));
+
+const io = require("socket.io")(server);
+
+// Routing
 app.use("/font", express.static(path.join(__dirname, "node_modules/@fortawesome/fontawesome-free")));
 
-var Game = require("./src/game-server");
-var game = new Game();
+const Game = require("./src/game-server");
+const game = new Game();
 io.set("transports", ["websocket"]);
 
 io.on("connection", socket => {
