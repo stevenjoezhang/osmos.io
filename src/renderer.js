@@ -1,5 +1,5 @@
-var Camera = require("./camera");
-var config = require("../config.json");
+const Camera = require("./camera");
+const config = require("../config.json");
 
 function Renderer(canvas) {
 	// Constants
@@ -28,7 +28,7 @@ function Renderer(canvas) {
 	};
 	this.touch_start = ev => {
 		ev.preventDefault(); // Prevent dragging
-		var touch = ev.touches[0]; // Just pay attention to first touch
+		const touch = ev.touches[0]; // Just pay attention to first touch
 		renderer.click_at_point(touch.pageX, touch.pageY);
 	};
 	this.mouse_down = ev => {
@@ -44,7 +44,7 @@ function Renderer(canvas) {
 		renderer.click_at_point(ev._x, ev._y);
 	};
 	this.mouse_scroll = event => {
-		var delta = 0;
+		let delta = 0;
 		if (!event) event = window.event;
 		// normalize the delta
 		if (event.wheelDelta) {
@@ -60,9 +60,9 @@ function Renderer(canvas) {
 			world.user_did_zoom = true;
 			if (delta > 0) renderer.cam.scale_target *= 1.2;
 			if (delta < 0) renderer.cam.scale_target /= 1.2;
-			var fit = Math.min(renderer.canvas.width, renderer.canvas.height);
-			var max = fit / 4 / world.get_player().radius;
-			var min = fit / 4 / renderer.level_radius;
+			const fit = Math.min(renderer.canvas.width, renderer.canvas.height);
+			const max = fit / 4 / world.get_player().radius;
+			const min = fit / 4 / renderer.level_radius;
 			if (renderer.cam.scale_target > max) renderer.cam.scale_target = max;
 			if (renderer.cam.scale_target < min) renderer.cam.scale_target = min;
 		}
@@ -98,8 +98,8 @@ function Renderer(canvas) {
 		this.ctx.arc(this.cam.world_to_viewport_x(0), this.cam.world_to_viewport_y(0), this.level_radius * this.cam.scale, 0, Math.PI * 2, true);
 		this.ctx.closePath();
 		this.ctx.stroke();
-		var player = world.get_player();
-		for (var i = 0; i < world.cells.length; i++) {
+		const player = world.get_player();
+		for (let i = 0; i < world.cells.length; i++) {
 			// If not the player, draw it now
 			if (i != 0) {
 				world.cells[i].draw(this.ctx, this.cam, this.shadows, player.radius);

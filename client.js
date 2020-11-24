@@ -1,15 +1,15 @@
-var io = require("socket.io-client");
+const io = require("socket.io-client");
 
-var Single = require("./src/mode/single");
-var Multi = require("./src/mode/player");
-var God = require("./src/mode/god");
+const Single = require("./src/mode/single");
+const Multi = require("./src/mode/player");
+const God = require("./src/mode/god");
 
-var Renderer = require("./src/renderer");
-var MusicPlayer = require("./src/musicplayer");
-var config = require("./config.json");
+const Renderer = require("./src/renderer");
+const MusicPlayer = require("./src/musicplayer");
+const config = require("./config.json");
 
 // Engine globals
-var mspf = 1000 / config.fps;
+const mspf = 1000 / config.fps;
 window.world = null;
 
 // Create requestAnimFrame if it doesn't exist
@@ -22,7 +22,7 @@ window.requestAnimFrame = window.requestAnimationFrame
 
 // Setup function called when page loads
 window.onload = () => {
-	var canvas = document.getElementById("canvas");
+	const canvas = document.getElementById("canvas");
 
 	// Game globals
 	window.renderer = new Renderer(canvas);
@@ -50,7 +50,7 @@ window.onload = () => {
 	register();
 
 	(() => {
-		var socket = io(`//${location.host}`, {
+		const socket = io(`//${location.host}`, {
 			forceNew: true,
 			upgrade: false,
 			transports: ["websocket"]

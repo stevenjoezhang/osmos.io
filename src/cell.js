@@ -1,4 +1,4 @@
-var config = require("../config.json");
+const config = require("../config.json");
 
 // Super-"class" of Ball and Player
 // Handles physical attributes and actions
@@ -26,8 +26,8 @@ function Cell(xpos, ypos, radius) {
 		this.y_veloc = -this.y_veloc;
 	};
 	this.distance_from = function(other) {
-		var dx = this.x_pos - other.x_pos;
-		var dy = this.y_pos - other.y_pos;
+		const dx = this.x_pos - other.x_pos;
+		const dy = this.y_pos - other.y_pos;
 		return Math.hypot(dx, dy);
 	}
 	this.collides_with = function(other) {
@@ -67,9 +67,9 @@ function reset_cell() {
 function update_cell(frame_delta) {
 	if (this.dead) return;
 	// Enforce speed limits
-	var xvelsign = this.x_veloc / Math.abs(this.x_veloc);
+	const xvelsign = this.x_veloc / Math.abs(this.x_veloc);
 	if (Math.abs(this.x_veloc) > this.x_veloc_max) this.x_veloc = xvelsign * this.x_veloc_max;
-	var yvelsign = this.y_veloc / Math.abs(this.y_veloc);
+	const yvelsign = this.y_veloc / Math.abs(this.y_veloc);
 	if (Math.abs(this.y_veloc) > this.y_veloc_max) this.y_veloc = yvelsign * this.y_veloc_max;
 	// Adjust the position, according to velocity.
 	this.x_pos += this.x_veloc * frame_delta;
@@ -92,7 +92,7 @@ function draw_cell(ctx, cam, shadow, player_radius) {
 	if (player_radius) {
 		if (this.radius > player_radius) ctx.fillStyle = "rgb(255,68,26)"; // red
 		else if (player_radius - this.radius <= 4) {
-			var delta = player_radius - this.radius;
+			let delta = player_radius - this.radius;
 			if (delta <= 2) {
 				var ref = [[255, 255], [68, 175], [26, 0]];
 				ctx.fillStyle = "rgb(" + ref.map(x => x[0] + (x[1] - x[0]) * delta / 4).join(",") + ")";

@@ -1,7 +1,7 @@
-var io = require("socket.io-client");
+const io = require("socket.io-client");
 
-var Cell = require("../cell");
-var config = require("../../config.json");
+const Cell = require("../cell");
+const config = require("../../config.json");
 
 function World() {
 	// Constants
@@ -16,10 +16,10 @@ function World() {
 	this.user_did_zoom = false; // Indicates if the player manually zoomed (so we can turn off smart zooming)
 	this.show_message = function(id) {
 		this.clear_msgs(true);
-		var div = document.getElementById("messages");
+		const div = document.getElementById("messages");
 		div.className = id;
 		div.style.display = "block";
-		var content;
+		let content;
 		switch (id) {
 			case "paused":
 				content = "<p>Paused</p><p>Click here to resume playing.</p>";
@@ -48,7 +48,7 @@ function World() {
 		}
 	};
 	this.toggle_help = function() {
-		var overlay = document.getElementById("helpoverlay");
+		const overlay = document.getElementById("helpoverlay");
 		// If overlay is hidden
 		if (overlay.style.display == "none") {
 			this.pause(true); // Pause the game
@@ -67,8 +67,8 @@ function World() {
 		// Define the player first
 		this.cells.push(new Cell(0, 0, 30));
 		// Generate a bunch of random cells
-		var rad, ang, r, x, y, cell;
-		for (var i = 0; i < config.consts.NUM_CELLS; i++) {
+		let rad, ang, r, x, y, cell;
+		for (let i = 0; i < config.consts.NUM_CELLS; i++) {
 			if (i < 4) rad = 5 + (Math.random() * 5); // Small cells
 			else if (i < 6) rad = 40 + (Math.random() * 15); // Big cells
 			else rad = 7 + (Math.random() * 35); // Everything else
@@ -87,29 +87,29 @@ function World() {
 		if (this.cells.length > 0) return this.cells[0];
 	};
 	this.push_player_from = function(x, y) {
-		var player = this.get_player();
+		const player = this.get_player();
 		if (player && !player.dead) {
-			var dx = player.x_pos - x;
-			var dy = player.y_pos - y;
+			let dx = player.x_pos - x;
+			let dy = player.y_pos - y;
 			// Normalize dx/dy
-			var mag = Math.hypot(dx, dy);
+			const mag = Math.hypot(dx, dy);
 			dx /= mag;
 			dy /= mag;
 			// Reduce force in proportion to area
-			var area = player.area();
-			var fx = dx * (5 / 9); // (400 / (area + 64));
-			var fy = dy * (5 / 9); //(400 / (area + 64));
+			const area = player.area();
+			const fx = dx * (5 / 9); // (400 / (area + 64));
+			const fy = dy * (5 / 9); //(400 / (area + 64));
 			// Push player
 			player.x_veloc += fx;
 			player.y_veloc += fy;
 			// Lose some mass (shall we say, 1/25?)
-			var expense = (area / 25) / (2 * Math.PI * player.radius);
+			const expense = (area / 25) / (2 * Math.PI * player.radius);
 			player.radius -= expense;
 			// Shoot off the expended mass in opposite direction
-			var newrad = Math.sqrt((area / 20) / Math.PI);
-			var newx = player.x_pos - (dx * (player.radius + newrad + 1)); // The +1 is for cushioning!
-			var newy = player.y_pos - (dy * (player.radius + newrad + 1));
-			var newcell = new Cell(newx, newy, newrad);
+			const newrad = Math.sqrt((area / 20) / Math.PI);
+			const newx = player.x_pos - (dx * (player.radius + newrad + 1)); // The +1 is for cushioning!
+			const newy = player.y_pos - (dy * (player.radius + newrad + 1));
+			const newcell = new Cell(newx, newy, newrad);
 			newcell.x_veloc = -fx * 9;
 			newcell.y_veloc = -fy * 9;
 			this.cells.push(newcell);
@@ -118,19 +118,19 @@ function World() {
 		}
 	};
 	this.transfer_mass = function(cell1, cell2) {
-		var player = this.get_player();
+		const player = this.get_player();
 		// Determine bigger cell
-		var bigger = cell1;
-		var smaller = cell2;
+		let bigger = cell1;
+		let smaller = cell2;
 		if (cell2.radius > cell1.radius) {
 			bigger = cell2;
 			smaller = cell1;
 		}
 		// Overlap amount will affect transfer amount
-		var overlap = (cell1.radius + cell2.radius - cell1.distance_from(cell2)) / (2 * smaller.radius);
+		let overlap = (cell1.radius + cell2.radius - cell1.distance_from(cell2)) / (2 * smaller.radius);
 		if (overlap > 1) overlap = 1;
 		overlap *= overlap;
-		var mass_exchange = overlap * smaller.area() * this.frame_delta;
+		const mass_exchange = overlap * smaller.area() * this.frame_delta;
 		smaller.radius -= mass_exchange / (2 * Math.PI * smaller.radius);
 		bigger.radius += mass_exchange / (2 * Math.PI * bigger.radius);
 		// If the player is the one gaining mass here, zoom the camera
@@ -148,10 +148,10 @@ function World() {
 		music.play_sound("death");
 		this.show_message("death");
 		// Cute animation thing
-		var player = this.get_player();
+		const player = this.get_player();
 		player.x_pos = player.y_pos = 0;
-		for (var i = 1; i < this.cells.length; i++) {
-			var cell = this.cells[i];
+		for (let i = 1; i < this.cells.length; i++) {
+			const cell = this.cells[i];
 			if (!cell.dead) {
 				cell.x_veloc += (cell.x_pos - player.x_pos) / 50;
 				cell.y_veloc += (cell.y_pos - player.y_pos) / 50;
@@ -166,20 +166,18 @@ function World() {
 		}
 	};
 	this.update = function() {
-		var player = this.get_player();
+		const player = this.get_player();
 		// Advance timer
-		var currentTick = Date.now();
+		const currentTick = Date.now();
 		this.frame_spacing = currentTick - this.lastTick;
 		this.frame_delta = this.frame_spacing * config.fps / 1000;
 		this.lastTick = currentTick;
 		// Run collisions and draw everything
-		var smallest_big_mass = 9999999999,
-			total_usable_mass = 0,
-			curr_area;
-		for (var i = 0; i < this.cells.length; i++) {
+		let smallest_big_mass = 9999999999, total_usable_mass = 0, curr_area;
+		for (let i = 0; i < this.cells.length; i++) {
 			if (this.cells[i].dead) continue;
 			if (!this.paused) {
-				for (var j = 0; j < this.cells.length; j++) {
+				for (let j = 0; j < this.cells.length; j++) {
 					if ((i != j) && (!this.cells[j].dead)) {
 						if (this.cells[i].collides_with(this.cells[j])) {
 							this.transfer_mass(this.cells[i], this.cells[j]);
@@ -193,15 +191,16 @@ function World() {
 					if (curr_area < smallest_big_mass) smallest_big_mass = curr_area;
 				}
 				else total_usable_mass += curr_area;
+
 				// If cell is outside of level bounds, fix it
-				var cell_x = this.cells[i].x_pos,
-					cell_y = this.cells[i].y_pos,
-					cellrad = this.cells[i].radius,
-					dist_from_origin = Math.hypot(cell_x, cell_y);
+				let cell_x = this.cells[i].x_pos;
+
+				let cell_y = this.cells[i].y_pos;
+				const cellrad = this.cells[i].radius;
+				let dist_from_origin = Math.hypot(cell_x, cell_y);
 				if (dist_from_origin + cellrad > this.level_radius) {
 					// Do some homework
-					var cell_xvel = this.cells[i].x_veloc,
-						cell_yvel = this.cells[i].y_veloc;
+					const cell_xvel = this.cells[i].x_veloc, cell_yvel = this.cells[i].y_veloc;
 					// Move cell safely inside bounds
 					this.cells[i].x_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
 					this.cells[i].y_pos *= ((this.level_radius - cellrad - 1) / dist_from_origin);
@@ -210,15 +209,15 @@ function World() {
 					dist_from_origin = Math.hypot(cell_x, cell_y);
 					// Bounce!
 					// Find speed
-					var cell_speed = Math.hypot(cell_xvel, cell_yvel);
+					const cell_speed = Math.hypot(cell_xvel, cell_yvel);
 					// Find angles of "center to cell" and cell's velocity
-					var angle_from_origin = angleForVector(cell_x, cell_y);
-					var veloc_ang = angleForVector(cell_xvel, cell_yvel);
+					const angle_from_origin = angleForVector(cell_x, cell_y);
+					const veloc_ang = angleForVector(cell_xvel, cell_yvel);
 					// Get new velocity angle
-					var new_veloc_ang = Math.PI + angle_from_origin + (angle_from_origin - veloc_ang);
+					const new_veloc_ang = Math.PI + angle_from_origin + (angle_from_origin - veloc_ang);
 					// Normalize the vector from the origin to the cell's new position
-					var center_to_cell_norm_x = -cell_x * (1 / dist_from_origin);
-					var center_to_cell_norm_y = -cell_y * (1 / dist_from_origin);
+					const center_to_cell_norm_x = -cell_x * (1 / dist_from_origin);
+					const center_to_cell_norm_y = -cell_y * (1 / dist_from_origin);
 					// Set new velocity components
 					this.cells[i].x_veloc = cell_speed * Math.cos(new_veloc_ang);
 					this.cells[i].y_veloc = cell_speed * Math.sin(new_veloc_ang);
@@ -245,7 +244,7 @@ function World() {
 }
 
 function angleForVector(x, y) {
-	var ang = Math.atan(y / x);
+	let ang = Math.atan(y / x);
 	if (x < 0) ang += Math.PI;
 	else if (y < 0) ang += 2 * Math.PI;
 	return ang;

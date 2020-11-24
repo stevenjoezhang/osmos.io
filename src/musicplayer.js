@@ -21,8 +21,8 @@ module.exports = function(songArray, sfxDict) {
 		this.current_song = Math.floor(Math.random() * songArray.length);
 		this.load_song();
 		this.inited = true;
-		for (var i in this.sounds) {
-			var src = this.sounds[i][0];
+		for (const i in this.sounds) {
+			const src = this.sounds[i][0];
 			this.sounds[i].push([new Audio(this.asset_dir + src), new Audio(this.asset_dir + src)]);
 			this.sounds[i].push(0);
 		}
@@ -40,9 +40,9 @@ module.exports = function(songArray, sfxDict) {
 				music.next_song();
 			}, false);
 			// Display metadata
-			var infobox = document.getElementById("songinfo");
-			var titlebox = document.getElementById("songtitle");
-			var artistbox = document.getElementById("songartist");
+			const infobox = document.getElementById("songinfo");
+			const titlebox = document.getElementById("songtitle");
+			const artistbox = document.getElementById("songartist");
 			if (infobox && titlebox && artistbox) {
 				titlebox.innerText = this.songs[this.current_song][1];
 				artistbox.innerText = this.songs[this.current_song][2];
@@ -98,7 +98,7 @@ module.exports = function(songArray, sfxDict) {
 	// Play the sound effect with the given name
 	this.play_sound = function(name) {
 		if (!this.muted) {
-			var sound = this.sounds[name];
+			const sound = this.sounds[name];
 			if (sound) {
 				sound[1][sound[2]].play(); // Play current round-robin Audio object for this sound
 				sound[2] = (sound[2] + 1) % sound[1].length; // Increment round-robin counter
