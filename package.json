@@ -1,5 +1,5 @@
 {
-  "name": "osmo",
+  "name": "osmos-io",
   "version": "0.0.1",
   "private": true,
   "description": "A multiplayer game (cloned from Osmos)",
@@ -8,20 +8,17 @@
     "build": "browserify client.js | terser > public/js/bundle.js",
     "build-dev": "watchify client.js -o public/js/bundle.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stevenjoezhang/osmo.git"
-  },
+  "repository": "stevenjoezhang/osmos.io",
   "keywords": [
-    "osmo",
+    "osmos",
     "Game"
   ],
   "author": "Stephen Eisenhauer",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/stevenjoezhang/osmo/issues"
+    "url": "https://github.com/stevenjoezhang/osmos.io/issues"
   },
-  "homepage": "https://github.com/stevenjoezhang/osmo",
+  "homepage": "https://github.com/stevenjoezhang/osmos.io",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "mimi-server": "^0.0.1",

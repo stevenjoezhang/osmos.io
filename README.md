@@ -14,9 +14,9 @@ The rules are simple; click to propel yourself around, and try to absorb smaller
 
 ```bash
 # Clone this repository
-git clone https://github.com/stevenjoezhang/osmo.git
+git clone https://github.com/stevenjoezhang/osmos.io.git
 # Go into the repository
-cd osmo
+cd osmos.io
 # Install dependencies
 npm install
 ```
