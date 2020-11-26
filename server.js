@@ -21,7 +21,6 @@ app.use("/font", express.static(path.join(__dirname, "node_modules/@fortawesome/
 
 const Game = require("./src/game-server");
 const game = new Game();
-io.set("transports", ["websocket"]);
 
 io.on("connection", socket => {
 	socket.on("hello", (data, fn) => {
