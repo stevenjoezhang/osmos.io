@@ -28,6 +28,6 @@
   "devDependencies": {
     "browserify": "17.0.0",
     "terser": "5.5.0",
-    "watchify": "3.11.1"
+    "watchify": "4.0.0"
   }
 }
