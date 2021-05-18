@@ -1,5 +1,5 @@
-const Camera = require("./camera");
-const config = require("../config.json");
+import Camera from "./camera";
+import config from "../config.js";
 
 function Renderer(canvas) {
 	// Constants
@@ -114,4 +114,4 @@ function Renderer(canvas) {
 	this.init();
 }
 
-module.exports = Renderer;
+export default Renderer;

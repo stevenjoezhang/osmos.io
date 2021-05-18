@@ -1,4 +1,4 @@
-const config = require("../config.json");
+import config from "../config.js";
 
 // Super-"class" of Ball and Player
 // Handles physical attributes and actions
@@ -112,4 +112,4 @@ function draw_cell(ctx, cam, shadow, player_radius) {
 	ctx.fill();
 }
 
-module.exports = Cell;
+export default Cell;

@@ -1,6 +1,6 @@
-const config = require("../config.json");
+import config from "../config.js";
 
-module.exports = function(canvas) {
+export default function(canvas) {
 	// Constants
 	this.scale_smoothness = 0.3;
 	this.move_smoothness = 0.3;
@@ -48,4 +48,4 @@ module.exports = function(canvas) {
 		// Scale 1x looks best when player radius is 40
 		this.scale_target = this.level_size / 10 / world.get_player().radius;
 	};
-}
+};

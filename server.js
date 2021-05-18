@@ -1,25 +1,28 @@
 // https://github.com/socketio/socket.io/blob/master/examples/chat/index.js
-const MiServer = require("mimi-server");
-const express = require("express");
-const path = require("path");
-const { exec } = require("child_process");
+import MiServer from "mimi-server";
 
-const config = require("./config.json");
+import express from "express";
+import path from "path";
+import { exec } from "child_process";
+import config from "./config.js";
 config.dev ? exec("npm run build-dev") : exec("npm run build");
 
 const port = process.env.PORT || config.port;
+import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const { app, server } = new MiServer({
 	port,
 	static: path.join(__dirname, "public")
 });
 
-const io = require("socket.io")(server);
+import { Server } from "socket.io";
+const io = new Server(server);
 
 // Routing
 app.use("/font", express.static(path.join(__dirname, "node_modules/@fortawesome/fontawesome-free")));
 
-const Game = require("./src/game-server");
+import Game from "./src/game-server.js";
 const game = new Game();
 
 io.on("connection", socket => {

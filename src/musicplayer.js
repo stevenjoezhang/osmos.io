@@ -3,7 +3,7 @@
  @sfxDict: Sound effects (identifier, filename)
  */
 
-module.exports = function(songArray, sfxDict) {
+export default function(songArray, sfxDict) {
 	// Constants
 	this.default_volume = 0.6;
 	// Variables
@@ -108,4 +108,4 @@ module.exports = function(songArray, sfxDict) {
 	this.update = function() {
 		if (this.song_audio.volume != this.song_volume) this.song_audio.volume += (this.song_volume - this.song_audio.volume) * 0.1;
 	};
-}
+};

@@ -1,7 +1,6 @@
-const io = require("socket.io-client");
-
-const Cell = require("../cell");
-const config = require("../../config.json");
+//import io from "socket.io-client";
+import Cell from "../cell";
+import config from "../../config.js";
 
 function World() {
 	// Constants
@@ -250,4 +249,4 @@ function angleForVector(x, y) {
 	return ang;
 }
 
-module.exports = World;
+export default World;

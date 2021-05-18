@@ -29,9 +29,9 @@ After cloning this repository, run the follow commands to install dependencies a
 npm start
 ```
 
-You can configure the game by editing `config.json`.
+You can configure the game by editing `config.js`.
 
-**WARNING: Remember to build again after editing any file, include `config.json`.**
+**WARNING: Remember to build again after editing any file, include `config.js`.**
 
 ## Build
 

@@ -1,5 +1,5 @@
-const Cell = require("./cell");
-const config = require("../config.json");
+import Cell from "./cell.js";
+import config from "../config.js";
 
 function World() {
 	// Constants
@@ -193,4 +193,4 @@ function angleForVector(x, y) {
 	return ang;
 }
 
-module.exports = World;
+export default World;

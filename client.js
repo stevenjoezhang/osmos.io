@@ -1,24 +1,14 @@
-const io = require("socket.io-client");
-
-const Single = require("./src/mode/single");
-const Multi = require("./src/mode/player");
-const God = require("./src/mode/god");
-
-const Renderer = require("./src/renderer");
-const MusicPlayer = require("./src/musicplayer");
-const config = require("./config.json");
+import io from "socket.io-client/dist/socket.io.js";
+import Single from "./src/mode/single.js";
+import Multi from "./src/mode/player.js";
+//import God from "./src/mode/god.js";
+import Renderer from "./src/renderer.js";
+import MusicPlayer from "./src/musicplayer.js";
+import config from "./config.js";
 
 // Engine globals
 const mspf = 1000 / config.fps;
 window.world = null;
-
-// Create requestAnimFrame if it doesn't exist
-window.requestAnimFrame = window.requestAnimationFrame
-|| window.webkitRequestAnimationFrame
-|| window.mozRequestAnimationFrame
-|| window.oRequestAnimationFrame
-|| window.msRequestAnimationFrame
-|| (callback => { window.setTimeout(callback, mspf) });
 
 // Setup function called when page loads
 window.onload = () => {
@@ -77,7 +67,7 @@ window.onload = () => {
 			// Animate!
 			(function animloop() {
 				if (world) world.update();
-				requestAnimFrame(animloop);
+				window.requestAnimationFrame(animloop);
 			})();
 		});
 	})();
@@ -92,7 +82,7 @@ window.onload = () => {
 		// Animate!
 		(function animloop() {
 			if (world) world.update();
-			requestAnimFrame(animloop);
+			window.requestAnimationFrame(animloop);
 		})();
 	});
 }
