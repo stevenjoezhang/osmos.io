@@ -27,7 +27,7 @@
     "socket.io-client": "4.5.3"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-commonjs": "^26.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "rollup": "^2.48.0",
     "terser": "5.15.1"
