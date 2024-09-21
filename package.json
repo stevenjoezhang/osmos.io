@@ -23,8 +23,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.0",
     "mimi-server": "^0.0.1",
-    "socket.io": "4.5.3",
-    "socket.io-client": "4.5.3"
+    "socket.io": "4.8.0",
+    "socket.io-client": "4.8.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
